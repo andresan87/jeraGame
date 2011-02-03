@@ -1,2 +1,2 @@
 Biblioteca para Android. Abstrai funcionalidades da API OpenGL ES e demais recursos específicos do Android em interfaces localizadas no pacote br.com.jera.graphic.
-Interfaces devem ser instanciadas através dos métodos contidos na classe br.com.jera.gles1.GLESGraphicDevice (implementação de br.com.jera.graphic.GraphicDevice).
+Instancias devem ser obtidas através dos métodos da classe br.com.jera.gles1.GLESGraphicDevice (implementação de br.com.jera.graphic.GraphicDevice).
