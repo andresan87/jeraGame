@@ -20,4 +20,7 @@ public interface GraphicDevice {
 	
 	public VertexArray createVertexArray(Math.Vertex[] vertices, Math.PRIMITIVE_TYPE type);
 	public Texture createStaticTexture(int resourceId);
+	
+	public void setDepthTest(boolean enable);
+	public boolean getDepthTest();
 }

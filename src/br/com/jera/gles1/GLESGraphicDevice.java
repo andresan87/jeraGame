@@ -17,12 +17,14 @@ public class GLESGraphicDevice implements GraphicDevice {
 	Vector4 backgroundColor;
 	GL10 glDevice;
 	TEXTURE_FILTER textureFilter;
+	boolean depthTestEnabled;
 
 	public GLESGraphicDevice(GL10 gl, Context context) {
 		glDevice = gl;
 		this.context = context;
 		assert(glDevice != null);
 		assert(this.context != null);
+		setDepthTest(false);
 	}
 
 	
@@ -51,6 +53,7 @@ public class GLESGraphicDevice implements GraphicDevice {
 	public void beginScene() {
 		glDevice.glClearColor(backgroundColor.x, backgroundColor.y,
 				backgroundColor.z, backgroundColor.w);
+		glDevice.glClearDepthf(1.0f);
 		glDevice.glClear(GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_COLOR_BUFFER_BIT);
 
 		glDevice.glMatrixMode(GL10.GL_MODELVIEW);
@@ -109,5 +112,21 @@ public class GLESGraphicDevice implements GraphicDevice {
 	
 	public TEXTURE_FILTER getTextureFilter() {
 		return textureFilter;
+	}
+
+	@Override
+	public void setDepthTest(boolean enable) {
+		if (enable) {
+			glDevice.glEnable(GL10.GL_DEPTH_TEST);
+			glDevice.glDepthFunc(GL10.GL_LEQUAL);
+		} else {
+			glDevice.glDisable(GL10.GL_DEPTH_TEST);
+		}
+		depthTestEnabled = enable;
+	}
+
+	@Override
+	public boolean getDepthTest() {
+		return depthTestEnabled;
 	}
 }

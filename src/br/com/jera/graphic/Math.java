@@ -85,6 +85,12 @@ public class Math {
 			this.color = color;
 		}
 
+		public Vertex(Vector3 pos, Vector2 texCoord, Vector4 color) {
+			this.pos = pos;
+			this.texCoord = texCoord;
+			this.color = color;
+		}
+
 		public Vertex(Vector3 pos, Vector2 texCoord) {
 			this.pos = pos;
 			this.texCoord = texCoord;
