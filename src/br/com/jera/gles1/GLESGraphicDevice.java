@@ -1,4 +1,4 @@
-package br.com.jera.gles1;
+﻿package br.com.jera.gles1;
 
 import javax.microedition.khronos.opengles.GL10;
 

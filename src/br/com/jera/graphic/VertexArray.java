@@ -1,4 +1,4 @@
-package br.com.jera.graphic;
+﻿package br.com.jera.graphic;
 
 import br.com.jera.graphic.Math.Vector3;
 
