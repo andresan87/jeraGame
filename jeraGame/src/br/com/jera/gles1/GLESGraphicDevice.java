@@ -27,7 +27,6 @@ public class GLESGraphicDevice implements GraphicDevice {
 		setDepthTest(false);
 	}
 
-	
 	public Context getContext() {
 		return context;
 	}

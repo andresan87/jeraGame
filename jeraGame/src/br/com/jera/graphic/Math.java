@@ -13,7 +13,7 @@ public class Math {
 			this.z = z;
 			this.w = w;
 		}
-		
+
 		public Vector4(Vector4 v) {
 			x = v.x;
 			y = v.y;
@@ -66,7 +66,7 @@ public class Math {
 		TRIANGLE_LIST, TRIANGLE_STRIP, TRIANGLE_FAN
 		// TODO lines, points...
 	}
-	
+
 	public static int computeNumTriangles(PRIMITIVE_TYPE type, int vertexCount) {
 		switch(type) {
 		case TRIANGLE_LIST:
@@ -78,7 +78,7 @@ public class Math {
 		// TODO lines, points...
 		}
 	}
-	
+
 	public static class Vertex {
 		public Vertex(Vector3 pos, Vector4 color) {
 			this.pos = pos;
@@ -99,5 +99,35 @@ public class Math {
 		public Vector3 pos;
 		public Vector4 color;
 		public Vector2 texCoord;
+	}
+
+	public static class GridCutter {
+		
+		public Rectangle2D[] rects;
+		
+		public GridCutter(int rows, int columns) {
+			rects = new Rectangle2D[rows*columns];
+			
+			float fRows = (float)rows;
+			float fColumns = (float)columns;
+			
+			int index = 0;
+			for (int y=0; y<rows; y++) {
+				for (int x=0; x<columns; x++) {
+					rects[index] = new Rectangle2D();
+					rects[index].pos.x = 1/fColumns * (float)x;
+					rects[index].pos.y = 1/fRows * (float)y;
+					rects[index].size.x = 1/fColumns;
+					rects[index].size.y = 1/fRows;
+
+					index++;
+				}
+			}
+		}
+	}
+
+	public static class Rectangle2D {
+		public Vector2 pos;
+		public Vector2 size;
 	}
 }
