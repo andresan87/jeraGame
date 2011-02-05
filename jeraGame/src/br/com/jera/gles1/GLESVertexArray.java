@@ -93,9 +93,13 @@ public class GLESVertexArray implements VertexArray {
 		glDevice.glLoadIdentity();
 		glDevice.glScalef(scale.x, scale.y,-scale.z); // force left-handed mode
 		glDevice.glTranslatef(pos.x, pos.y, pos.z);
-		glDevice.glRotatef(rot.x, 1, 0, 0);
-		glDevice.glRotatef(rot.y, 0, 1, 0);
-		glDevice.glRotatef(rot.z, 0, 0, 1);
+		
+		if (rot.x != 0.0f)
+			glDevice.glRotatef(rot.x, 1, 0, 0);
+		if (rot.y != 0.0f)
+			glDevice.glRotatef(rot.y, 0, 1, 0);
+		if (rot.z != 0.0f)
+			glDevice.glRotatef(rot.z, 0, 0, 1);
 
 		if (positionsBuffer != null)
 			glDevice.glEnableClientState(GL10.GL_VERTEX_ARRAY);
