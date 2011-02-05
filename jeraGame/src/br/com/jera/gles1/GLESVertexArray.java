@@ -4,9 +4,9 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import br.com.jera.graphic.Math;
-import br.com.jera.graphic.Math.Vector3;
 import br.com.jera.graphic.VertexArray;
+import br.com.jera.util.Math;
+import br.com.jera.util.Math.Vector3;
 
 public class GLESVertexArray implements VertexArray {
 

@@ -1,7 +1,7 @@
 ﻿package br.com.jera.graphic;
 
 import android.test.AndroidTestCase;
-import br.com.jera.graphic.Math.Vector4;
+import br.com.jera.util.Math.Vector4;
 
 public class Vector4Test extends AndroidTestCase {
 

@@ -1,5 +1,6 @@
 ﻿package br.com.jera.graphic;
 
+import br.com.jera.util.Math;
 import android.test.AndroidTestCase;
 
 public class GridCutterTest extends AndroidTestCase {

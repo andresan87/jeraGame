@@ -1,6 +1,7 @@
 ﻿package br.com.jera.graphic;
 
-import br.com.jera.graphic.Math.Vector2;
+import br.com.jera.util.Math;
+import br.com.jera.util.Math.Vector2;
 
 public interface GraphicDevice {
 

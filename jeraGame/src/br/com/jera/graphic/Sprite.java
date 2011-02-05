@@ -1,11 +1,12 @@
 package br.com.jera.graphic;
 
-import br.com.jera.graphic.Math.GridCutter;
-import br.com.jera.graphic.Math.PRIMITIVE_TYPE;
-import br.com.jera.graphic.Math.Rectangle2D;
-import br.com.jera.graphic.Math.Vector2;
-import br.com.jera.graphic.Math.Vector3;
-import br.com.jera.graphic.Math.Vertex;
+import br.com.jera.util.Math;
+import br.com.jera.util.Math.GridCutter;
+import br.com.jera.util.Math.PRIMITIVE_TYPE;
+import br.com.jera.util.Math.Rectangle2D;
+import br.com.jera.util.Math.Vector2;
+import br.com.jera.util.Math.Vector3;
+import br.com.jera.util.Math.Vertex;
 
 public class Sprite {
 	

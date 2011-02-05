@@ -9,9 +9,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.opengl.GLUtils;
-import br.com.jera.graphic.Math.Vector2;
 import br.com.jera.graphic.Texture;
-
+import br.com.jera.util.Math.Vector2;
 public class GLESStaticTexture implements Texture {
 
 	private int[] texture = new int[1];

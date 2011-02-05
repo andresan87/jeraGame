@@ -1,4 +1,4 @@
-﻿package br.com.jera.graphic;
+﻿package br.com.jera.util;
 
 public class Math {
 
