@@ -24,6 +24,7 @@ public interface GraphicDevice {
 		LINEAR, POINT
 	}
 	public void setTextureFilter(TEXTURE_FILTER filter);
+	public TEXTURE_FILTER getTextureFilter();
 	
 	public void setBackgroundColor(Math.Vector4 color);
 	

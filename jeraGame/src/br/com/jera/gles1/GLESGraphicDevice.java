@@ -149,6 +149,7 @@ public class GLESGraphicDevice implements GraphicDevice {
 		textureFilter = filter;
 	}
 	
+	@Override
 	public TEXTURE_FILTER getTextureFilter() {
 		return textureFilter;
 	}
