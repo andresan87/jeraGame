@@ -18,6 +18,7 @@ public interface GraphicDevice {
 		CULL_CCW, CULL_CW, CULL_NONE
 	}
 	public void setCullingMode(CULLING_MODE mode);
+	public CULLING_MODE getCullingMode();
 
 	enum TEXTURE_FILTER {
 		LINEAR, POINT

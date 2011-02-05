@@ -20,6 +20,7 @@ public class GLESGraphicDevice implements GraphicDevice {
 	Vector4 backgroundColor;
 	GL10 glDevice;
 	TEXTURE_FILTER textureFilter;
+	CULLING_MODE cullingMode;
 	boolean depthTestEnabled;
 	int screenWidth;
 	int screenHeight;
@@ -115,8 +116,13 @@ public class GLESGraphicDevice implements GraphicDevice {
 			// mGl.glCullFace(GL10.GL_FRONT_AND_BACK);
 			break;
 		}
+		cullingMode = mode;
 	}
 
+	@Override
+	public CULLING_MODE getCullingMode() {
+		return cullingMode;
+	}
 	@Override
 	public VertexArray createVertexArray(Vertex[] vertices, PRIMITIVE_TYPE type) {
 		return new GLESVertexArray(glDevice, vertices, type);
