@@ -21,10 +21,12 @@ public class GLESGraphicDevice implements GraphicDevice {
 	GL10 glDevice;
 	TEXTURE_FILTER textureFilter;
 	CULLING_MODE cullingMode;
+	ALPHA_MODE alphaMode;
 	boolean depthTestEnabled;
 	int screenWidth;
 	int screenHeight;
 	boolean textureWrap;
+	final float ALPHAREF = 0.05f;
 
 	public GLESGraphicDevice(GL10 gl, Context context) {
 		glDevice = gl;
@@ -200,5 +202,46 @@ public class GLESGraphicDevice implements GraphicDevice {
 	@Override
 	public boolean getTextureWrap() {
 		return textureWrap;
+	}
+
+	@Override
+	public void setAlphaMode(ALPHA_MODE mode) {
+		switch(mode)
+		{
+		case DEFAULT:
+			glDevice.glEnable(GL10.GL_BLEND);
+			glDevice.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+			glDevice.glAlphaFunc(GL10.GL_GREATER, ALPHAREF);
+			glDevice.glEnable(GL10.GL_ALPHA_TEST);
+			break;
+		case ADD:
+			glDevice.glEnable(GL10.GL_BLEND);
+			glDevice.glBlendFunc(GL10.GL_ONE, GL10.GL_ONE);
+			glDevice.glAlphaFunc(GL10.GL_GREATER, ALPHAREF);
+			glDevice.glEnable(GL10.GL_ALPHA_TEST);
+			break;
+		case ALPHA_TEST_ONLY:
+			glDevice.glAlphaFunc(GL10.GL_GREATER, ALPHAREF);
+			glDevice.glEnable(GL10.GL_ALPHA_TEST);
+			glDevice.glDisable(GL10.GL_BLEND);
+		break;
+		case MODULATE:
+			glDevice.glEnable(GL10.GL_BLEND);
+			glDevice.glBlendFunc(GL10.GL_ZERO, GL10.GL_SRC_COLOR);
+			glDevice.glAlphaFunc(GL10.GL_GREATER, ALPHAREF);
+			glDevice.glEnable(GL10.GL_ALPHA_TEST);
+		break;
+		case NONE:
+		default:
+			glDevice.glDisable(GL10.GL_BLEND);
+			glDevice.glDisable(GL10.GL_ALPHA_TEST);
+			break;
+		};
+		alphaMode = mode;
+	}
+
+	@Override
+	public ALPHA_MODE getAlphaMode() {
+		return alphaMode;
 	}
 }

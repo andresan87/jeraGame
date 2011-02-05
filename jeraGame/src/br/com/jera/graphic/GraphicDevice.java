@@ -14,13 +14,19 @@ public interface GraphicDevice {
 	public void beginScene();
 	public void endScene();
 	
-	enum CULLING_MODE {
+	public enum ALPHA_MODE {
+		ALPHA_TEST_ONLY, DEFAULT, ADD, MODULATE, NONE
+	}
+	public void setAlphaMode(ALPHA_MODE mode);
+	public ALPHA_MODE getAlphaMode();
+	
+	public enum CULLING_MODE {
 		CULL_CCW, CULL_CW, CULL_NONE
 	}
 	public void setCullingMode(CULLING_MODE mode);
 	public CULLING_MODE getCullingMode();
 
-	enum TEXTURE_FILTER {
+	public enum TEXTURE_FILTER {
 		LINEAR, POINT
 	}
 	public void setTextureFilter(TEXTURE_FILTER filter);
