@@ -8,7 +8,7 @@ import br.com.jera.graphic.Math;
 import br.com.jera.graphic.Math.Vector3;
 import br.com.jera.graphic.VertexArray;
 
-public class GLESVertexArray extends VertexArray {
+public class GLESVertexArray implements VertexArray {
 
 	private GL10 glDevice;
 	private FloatBuffer positionsBuffer;
@@ -16,6 +16,7 @@ public class GLESVertexArray extends VertexArray {
 	private FloatBuffer texCoordsBuffer;
 	private int vertexCount;
 	private Math.PRIMITIVE_TYPE primitiveType;
+	private int numVertices;
 	
 	public int getPositionBufferLength() {
 		return positionsBuffer.array().length;
@@ -75,14 +76,22 @@ public class GLESVertexArray extends VertexArray {
 			positionsBuffer = FloatBuffer.wrap(positions);
 		if (nTexCoords == vertices.length)
 			texCoordsBuffer = FloatBuffer.wrap(texCoords);
+		
+		numVertices = vertices.length;
 	}
 
+	@Override
+	public void setVertices(float[] vertices) {
+		assert(vertices.length/3 == numVertices);
+		positionsBuffer = FloatBuffer.wrap(vertices);
+	}
+	
 	@Override
 	public void drawGeometry(Vector3 pos, Vector3 rot, Vector3 scale) {
 
 		glDevice.glMatrixMode(GL10.GL_MODELVIEW);
 		glDevice.glLoadIdentity();
-		glDevice.glScalef(scale.x, scale.y, scale.z);
+		glDevice.glScalef(scale.x, scale.y,-scale.z); // force left-handed mode
 		glDevice.glTranslatef(pos.x, pos.y, pos.z);
 		glDevice.glRotatef(rot.x, 1, 0, 0);
 		glDevice.glRotatef(rot.y, 0, 1, 0);
@@ -123,5 +132,10 @@ public class GLESVertexArray extends VertexArray {
 			return GL10.GL_TRIANGLES;
 			// TODO lines, points...
 		}
+	}
+
+	@Override
+	public int getNumVertices() {
+		return numVertices;
 	}
 }

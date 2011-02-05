@@ -41,6 +41,12 @@ public class Math {
 			this.z = z;
 		}
 
+		public Vector3(Vector2 v, float z) {
+			this.x = v.x;
+			this.y = v.y;
+			this.z = z;
+		}
+
 		public float x, y, z;
 	}
 
@@ -57,6 +63,22 @@ public class Math {
 		public Vector2(float x, float y) {
 			this.x = x;
 			this.y = y;
+		}
+		
+		public Vector2 add(Vector2 v) {
+			return new Vector2(x+v.x, y+v.y);
+		}
+
+		public Vector2 sub(Vector2 v) {
+			return new Vector2(x-v.x, y-v.y);
+		}
+
+		public Vector2 multiply(float v) {
+			return new Vector2(x*v, y*v);
+		}
+
+		public Vector2 multiply(Vector2 v) {
+			return new Vector2(x*v.x, y*v.y);
 		}
 
 		public float x, y;
@@ -77,6 +99,10 @@ public class Math {
 			return vertexCount-2;
 		// TODO lines, points...
 		}
+	}
+	
+	public static Vector2 computeSpriteOriginOffset(Vector2 bitmapSize, Vector2 normalizedOrigin) {
+		return new Vector2(-bitmapSize.x*normalizedOrigin.x, -bitmapSize.y*normalizedOrigin.y);
 	}
 
 	public static class Vertex {
@@ -105,7 +131,7 @@ public class Math {
 		
 		public Rectangle2D[] rects;
 		
-		public GridCutter(int rows, int columns) {
+		public GridCutter(int columns, int rows) {
 			rects = new Rectangle2D[rows*columns];
 			
 			float fRows = (float)rows;
@@ -127,7 +153,8 @@ public class Math {
 	}
 
 	public static class Rectangle2D {
-		public Vector2 pos;
-		public Vector2 size;
+		
+		public Vector2 pos = new Vector2();
+		public Vector2 size = new Vector2();
 	}
 }

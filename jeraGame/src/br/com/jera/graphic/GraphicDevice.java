@@ -1,8 +1,16 @@
 ﻿package br.com.jera.graphic;
 
+import br.com.jera.graphic.Math.Vector2;
+
 public interface GraphicDevice {
 
 	public void setup3DView(int width, int height);
+	public void setup2DView(int width, int height);
+	public void setup3DView();
+	public void setup2DView();
+	
+	public Vector2 getScreenSize();
+	
 	public void beginScene();
 	public void endScene();
 	
@@ -20,6 +28,9 @@ public interface GraphicDevice {
 	
 	public VertexArray createVertexArray(Math.Vertex[] vertices, Math.PRIMITIVE_TYPE type);
 	public Texture createStaticTexture(int resourceId);
+	
+	public void setTextureWrap(boolean enable);
+	public boolean getTextureWrap();
 	
 	public void setDepthTest(boolean enable);
 	public boolean getDepthTest();

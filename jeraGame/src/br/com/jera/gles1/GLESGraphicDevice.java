@@ -1,11 +1,14 @@
 ﻿package br.com.jera.gles1;
 
+import java.nio.FloatBuffer;
+
 import javax.microedition.khronos.opengles.GL10;
 
 import android.content.Context;
 import android.opengl.GLU;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.Math.PRIMITIVE_TYPE;
+import br.com.jera.graphic.Math.Vector2;
 import br.com.jera.graphic.Math.Vector4;
 import br.com.jera.graphic.Math.Vertex;
 import br.com.jera.graphic.Texture;
@@ -18,6 +21,9 @@ public class GLESGraphicDevice implements GraphicDevice {
 	GL10 glDevice;
 	TEXTURE_FILTER textureFilter;
 	boolean depthTestEnabled;
+	int screenWidth;
+	int screenHeight;
+	boolean textureWrap;
 
 	public GLESGraphicDevice(GL10 gl, Context context) {
 		glDevice = gl;
@@ -25,6 +31,8 @@ public class GLESGraphicDevice implements GraphicDevice {
 		assert(glDevice != null);
 		assert(this.context != null);
 		setDepthTest(false);
+		setTextureFilter(TEXTURE_FILTER.LINEAR);
+		setTextureWrap(false);
 	}
 
 	public Context getContext() {
@@ -38,15 +46,41 @@ public class GLESGraphicDevice implements GraphicDevice {
 	public Vector4 getBackgroundColor() {
 		return backgroundColor;
 	}
+	
+	private void setupViewport(int width, int height) {
+		glDevice.glViewport(0, 0, width, height);
+	}
 
 	public void setup3DView(int width, int height) {
-		glDevice.glViewport(0, 0, width, height);
+		screenWidth = width;
+		screenHeight = height;
+		setupViewport(width, height);
 		glDevice.glMatrixMode(GL10.GL_PROJECTION);
 		glDevice.glLoadIdentity();
 		GLU.gluPerspective(glDevice, 45.0f, (float) width / (float) height,
 				0.1f, 100.0f);
 		glDevice.glFrontFace(GL10.GL_CW);
 		setCullingMode(CULLING_MODE.CULL_CCW);
+	}
+
+	@Override
+	public void setup2DView(int width, int height) {
+		screenWidth = width;
+		screenHeight = height;
+		setupViewport(width, height);
+		glDevice.glMatrixMode(GL10.GL_PROJECTION);
+		glDevice.glLoadIdentity();
+
+		final float zn =-1;
+		final float zf = 1;
+		float[] matrix = {
+				2.0f/(float)width, 0, 0, 0,
+				0, 2.0f/(float)height, 0, 0,
+				0, 0, 1.0f/(zf-zn), 0,
+				0, 0, zn/(zn-zf),1
+		};
+		glDevice.glMultMatrixf(FloatBuffer.wrap(matrix));
+		setCullingMode(CULLING_MODE.CULL_NONE);
 	}
 
 	public void beginScene() {
@@ -127,5 +161,37 @@ public class GLESGraphicDevice implements GraphicDevice {
 	@Override
 	public boolean getDepthTest() {
 		return depthTestEnabled;
+	}
+
+	@Override
+	public void setup3DView() {
+		setup3DView(screenWidth, screenHeight);
+	}
+
+	@Override
+	public void setup2DView() {
+		setup2DView(screenWidth, screenHeight);
+	}
+
+	@Override
+	public Vector2 getScreenSize() {
+		return new Vector2((float)screenWidth, (float)screenHeight);
+	}
+
+	@Override
+	public void setTextureWrap(boolean enable) {
+		textureWrap = enable;
+		if (enable) {
+			glDevice.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_REPEAT);
+			glDevice.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_REPEAT);
+		} else {
+			glDevice.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S, GL10.GL_CLAMP_TO_EDGE);
+			glDevice.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T, GL10.GL_CLAMP_TO_EDGE);
+		}
+	}
+
+	@Override
+	public boolean getTextureWrap() {
+		return textureWrap;
 	}
 }

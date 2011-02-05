@@ -2,7 +2,9 @@
 
 import br.com.jera.graphic.Math.Vector3;
 
-public abstract class VertexArray {
+public interface VertexArray {
 
-	public abstract void drawGeometry(Vector3 pos, Vector3 rot, Vector3 scale); 
+	public void setVertices(float[] vertices);
+	public int getNumVertices();
+	public void drawGeometry(Vector3 pos, Vector3 rot, Vector3 scale); 
 }
