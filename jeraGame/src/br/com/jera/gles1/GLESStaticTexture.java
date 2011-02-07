@@ -49,8 +49,23 @@ public class GLESStaticTexture implements Texture {
 		glDevice.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER, GL10.GL_NEAREST);
 		glDevice.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MAG_FILTER, GL10.GL_LINEAR);
 
-		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
-		bitmapSize = new Vector2((float)bitmap.getWidth(), (float)bitmap.getHeight());
+		int width = bitmap.getWidth();
+		int height = bitmap.getHeight();
+		
+		bitmapSize = new Vector2((float)width, (float)height);
+
+		{
+			int w = width, h = height;
+			while ((w & (w-1)) != 0)
+				w++;
+			while ((h & (h-1)) != 0)
+				h++;
+			width = w;
+			height = h;
+		}
+
+		Bitmap pow2Bmp = Bitmap.createScaledBitmap(bitmap, width, height, true);
+		GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, pow2Bmp, 0);
 
 		bitmap.recycle();
 		glDevice.glDisable(GL10.GL_TEXTURE_2D);
