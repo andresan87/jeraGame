@@ -8,4 +8,10 @@ public interface InputListener {
 	public Vector2 getCurrentTouch();
 	public Vector2 getTouchMove();
 
+	public Vector2 getLastTouch(final int t);
+	public Vector2 getCurrentTouch(final int t);
+	public Vector2 getTouchMove(final int t);
+
+	public int getTouchCount();
+	public int getMaximumTouches();
 }
