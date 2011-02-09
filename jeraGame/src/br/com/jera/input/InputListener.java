@@ -1,6 +1,6 @@
 package br.com.jera.input;
 
-import br.com.jera.util.Math.Vector2;
+import br.com.jera.util.CommonMath.Vector2;
 
 public interface InputListener {
 	

@@ -1,12 +1,12 @@
 ﻿package br.com.jera.graphic;
 
-import br.com.jera.util.Math;
+import br.com.jera.util.CommonMath;
 import android.test.AndroidTestCase;
 
 public class GridCutterTest extends AndroidTestCase {
 	
 	public void testGridCutter() {
-		Math.GridCutter gc = new Math.GridCutter(4,2);
+		CommonMath.GridCutter gc = new CommonMath.GridCutter(4,2);
 		for (int t=0; t<gc.rects.length; t++) {
 			assertEquals("SizeX should match", 0.25f, gc.rects[t].size.x); 
 			assertEquals("SizeY should match", 0.5f, gc.rects[t].size.y); 

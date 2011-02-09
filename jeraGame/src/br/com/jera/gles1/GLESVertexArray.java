@@ -5,8 +5,10 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 import br.com.jera.graphic.VertexArray;
-import br.com.jera.util.Math;
-import br.com.jera.util.Math.Vector3;
+import br.com.jera.util.CommonMath;
+import br.com.jera.util.CommonMath.PRIMITIVE_TYPE;
+import br.com.jera.util.CommonMath.Vector3;
+import br.com.jera.util.CommonMath.Vertex;
 
 public class GLESVertexArray implements VertexArray {
 
@@ -15,7 +17,7 @@ public class GLESVertexArray implements VertexArray {
 	private FloatBuffer colorsBuffer;
 	private FloatBuffer texCoordsBuffer;
 	private int vertexCount;
-	private Math.PRIMITIVE_TYPE primitiveType;
+	private PRIMITIVE_TYPE primitiveType;
 	private int numVertices;
 	
 	public int getPositionBufferLength() {
@@ -34,11 +36,11 @@ public class GLESVertexArray implements VertexArray {
 		return vertexCount;
 	}
 	
-	public Math.PRIMITIVE_TYPE getPrimitiveType() {
+	public PRIMITIVE_TYPE getPrimitiveType() {
 		return primitiveType;
 	}
 
-	protected GLESVertexArray(GL10 gl, Math.Vertex[] vertices, Math.PRIMITIVE_TYPE type) {
+	protected GLESVertexArray(GL10 gl, Vertex[] vertices, CommonMath.PRIMITIVE_TYPE type) {
 
 		glDevice = gl;
 		primitiveType = type;
@@ -124,8 +126,8 @@ public class GLESVertexArray implements VertexArray {
 		if (texCoordsBuffer != null)
 			glDevice.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 	}
-
-	private int getGLPrimitiveType(Math.PRIMITIVE_TYPE type) {
+	
+	private int getGLPrimitiveType(CommonMath.PRIMITIVE_TYPE type) {
 		switch (type) {
 		case TRIANGLE_FAN:
 			return GL10.GL_TRIANGLE_FAN;

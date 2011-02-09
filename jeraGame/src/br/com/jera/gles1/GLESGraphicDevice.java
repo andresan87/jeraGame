@@ -9,10 +9,10 @@ import android.opengl.GLU;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.Texture;
 import br.com.jera.graphic.VertexArray;
-import br.com.jera.util.Math.PRIMITIVE_TYPE;
-import br.com.jera.util.Math.Vector2;
-import br.com.jera.util.Math.Vector4;
-import br.com.jera.util.Math.Vertex;
+import br.com.jera.util.CommonMath.PRIMITIVE_TYPE;
+import br.com.jera.util.CommonMath.Vector2;
+import br.com.jera.util.CommonMath.Vector4;
+import br.com.jera.util.CommonMath.Vertex;
 
 public class GLESGraphicDevice implements GraphicDevice {
 
@@ -84,6 +84,7 @@ public class GLESGraphicDevice implements GraphicDevice {
 		};
 		glDevice.glMultMatrixf(FloatBuffer.wrap(matrix));
 		setCullingMode(CULLING_MODE.CULL_NONE);
+		setTextureWrap(false);
 	}
 
 	public void beginScene() {
@@ -125,6 +126,7 @@ public class GLESGraphicDevice implements GraphicDevice {
 	public CULLING_MODE getCullingMode() {
 		return cullingMode;
 	}
+
 	@Override
 	public VertexArray createVertexArray(Vertex[] vertices, PRIMITIVE_TYPE type) {
 		return new GLESVertexArray(glDevice, vertices, type);

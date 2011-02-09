@@ -1,10 +1,10 @@
 ﻿package br.com.jera.graphic;
 
 import android.test.AndroidTestCase;
-import br.com.jera.util.Math.Vector2;
-import br.com.jera.util.Math.Vector3;
-import br.com.jera.util.Math.Vector4;
-import br.com.jera.util.Math.Vertex;
+import br.com.jera.util.CommonMath.Vector2;
+import br.com.jera.util.CommonMath.Vector3;
+import br.com.jera.util.CommonMath.Vector4;
+import br.com.jera.util.CommonMath.Vertex;
 
 public class VertexTest extends AndroidTestCase {
 

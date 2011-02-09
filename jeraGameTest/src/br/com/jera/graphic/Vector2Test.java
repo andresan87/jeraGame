@@ -1,8 +1,8 @@
 ﻿package br.com.jera.graphic;
 
 import android.test.AndroidTestCase;
-import br.com.jera.util.Math;
-import br.com.jera.util.Math.Vector2;
+import br.com.jera.util.CommonMath;
+import br.com.jera.util.CommonMath.Vector2;
 
 public class Vector2Test extends AndroidTestCase {
 	
@@ -43,7 +43,7 @@ public class Vector2Test extends AndroidTestCase {
 	}
 
 	public void textComputeSpriteOriginOffset() {
-		Vector2 v = Math.computeSpriteOriginOffset(new Vector2(100,50), new Vector2(0.5f, 0.5f));
+		Vector2 v = CommonMath.computeSpriteOriginOffset(new Vector2(100,50), new Vector2(0.5f, 0.5f));
 		assertEquals("v.x should match", -50.0f, v.x);
 		assertEquals("v.y should match", -25.0f, v.y);
 	}

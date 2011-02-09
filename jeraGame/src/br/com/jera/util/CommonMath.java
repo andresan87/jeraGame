@@ -1,6 +1,6 @@
 ﻿package br.com.jera.util;
 
-public class Math {
+public class CommonMath {
 
 	public static class Vector4 {
 		public Vector4() {

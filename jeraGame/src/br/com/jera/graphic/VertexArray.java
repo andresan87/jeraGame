@@ -1,6 +1,6 @@
 ﻿package br.com.jera.graphic;
 
-import br.com.jera.util.Math.Vector3;
+import br.com.jera.util.CommonMath.Vector3;
 
 public interface VertexArray {
 

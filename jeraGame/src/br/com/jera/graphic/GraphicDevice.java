@@ -1,7 +1,9 @@
 ﻿package br.com.jera.graphic;
 
-import br.com.jera.util.Math;
-import br.com.jera.util.Math.Vector2;
+import br.com.jera.util.CommonMath;
+import br.com.jera.util.CommonMath.Vector2;
+import br.com.jera.util.CommonMath.Vector4;
+import br.com.jera.util.CommonMath.Vertex;
 
 public interface GraphicDevice {
 
@@ -33,9 +35,9 @@ public interface GraphicDevice {
 	public void setTextureFilter(TEXTURE_FILTER filter);
 	public TEXTURE_FILTER getTextureFilter();
 	
-	public void setBackgroundColor(Math.Vector4 color);
+	public void setBackgroundColor(Vector4 color);
 	
-	public VertexArray createVertexArray(Math.Vertex[] vertices, Math.PRIMITIVE_TYPE type);
+	public VertexArray createVertexArray(Vertex[] vertices, CommonMath.PRIMITIVE_TYPE type);
 	public Texture createStaticTexture(int resourceId);
 	
 	public void setTextureWrap(boolean enable);
