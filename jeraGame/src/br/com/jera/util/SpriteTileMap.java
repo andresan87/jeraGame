@@ -80,4 +80,14 @@ public class SpriteTileMap implements DisplayableEntity {
 	Vector2 origin = new Vector2();
 	GraphicDevice device;
 	TileMap tileMap;
+	@Override
+	public Vector2 getMin() {
+		return new Vector2(origin);
+	}
+
+	@Override
+	public Vector2 getMax() {
+		return new Vector2(getMin().add(
+				new Vector2((float)tileMap.getWidth()*tileSet.getFrameSize().x, (float)tileMap.getHeight()*tileSet.getFrameSize().y)));
+	}
 }

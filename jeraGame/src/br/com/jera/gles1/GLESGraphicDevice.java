@@ -17,7 +17,7 @@ import br.com.jera.util.CommonMath.Vertex;
 public class GLESGraphicDevice implements GraphicDevice {
 
 	Context context;
-	Vector4 backgroundColor;
+	Vector4 backgroundColor = new Vector4(0,0,0,1);
 	GL10 glDevice;
 	TEXTURE_FILTER textureFilter;
 	CULLING_MODE cullingMode;

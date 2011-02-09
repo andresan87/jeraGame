@@ -115,7 +115,6 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		}
 
 		public void onSurfaceChanged(GL10 gl, int width, int height) {
-			device.setup3DView(width, height);
 			app.resetFrameBuffer(width, height);
 		}
 
