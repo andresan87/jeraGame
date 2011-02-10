@@ -2,6 +2,10 @@
 
 public class CommonMath {
 
+	public final static float PI = 3.141592654f;
+	public final static float _2PI = PI*2.0f;
+	public final static float HALF_PI = PI/2.0f;
+
 	public static class Vector4 {
 		public Vector4() {
 			x = y = z = w = 0;
@@ -64,21 +68,21 @@ public class CommonMath {
 			this.x = x;
 			this.y = y;
 		}
-		
+
 		public Vector2 add(Vector2 v) {
-			return new Vector2(x+v.x, y+v.y);
+			return new Vector2(x + v.x, y + v.y);
 		}
 
 		public Vector2 sub(Vector2 v) {
-			return new Vector2(x-v.x, y-v.y);
+			return new Vector2(x - v.x, y - v.y);
 		}
 
 		public Vector2 multiply(float v) {
-			return new Vector2(x*v, y*v);
+			return new Vector2(x * v, y * v);
 		}
 
 		public Vector2 multiply(Vector2 v) {
-			return new Vector2(x*v.x, y*v.y);
+			return new Vector2(x * v.x, y * v.y);
 		}
 
 		public float x, y;
@@ -90,19 +94,24 @@ public class CommonMath {
 	}
 
 	public static int computeNumTriangles(PRIMITIVE_TYPE type, int vertexCount) {
-		switch(type) {
+		switch (type) {
 		case TRIANGLE_LIST:
-			return vertexCount/3;
+			return vertexCount / 3;
 		case TRIANGLE_STRIP:
 		case TRIANGLE_FAN:
 		default:
-			return vertexCount-2;
-		// TODO lines, points...
+			return vertexCount - 2;
+			// TODO lines, points...
 		}
 	}
-	
+
+	public static float getAngle(Vector2 v) {
+		final float r = (float) Math.atan2(v.x, v.y);
+		return (r < 0.0f) ? r + (2.0f * PI) : r;
+	}
+
 	public static Vector2 computeSpriteOriginOffset(Vector2 bitmapSize, Vector2 normalizedOrigin) {
-		return new Vector2(-bitmapSize.x*normalizedOrigin.x, -bitmapSize.y*normalizedOrigin.y);
+		return new Vector2(-bitmapSize.x * normalizedOrigin.x, -bitmapSize.y * normalizedOrigin.y);
 	}
 
 	public static class Vertex {
@@ -128,23 +137,23 @@ public class CommonMath {
 	}
 
 	public static class GridCutter {
-		
+
 		public Rectangle2D[] rects;
-		
+
 		public GridCutter(int columns, int rows) {
-			rects = new Rectangle2D[rows*columns];
-			
-			float fRows = (float)rows;
-			float fColumns = (float)columns;
-			
+			rects = new Rectangle2D[rows * columns];
+
+			float fRows = (float) rows;
+			float fColumns = (float) columns;
+
 			int index = 0;
-			for (int y=0; y<rows; y++) {
-				for (int x=0; x<columns; x++) {
+			for (int y = 0; y < rows; y++) {
+				for (int x = 0; x < columns; x++) {
 					rects[index] = new Rectangle2D();
-					rects[index].pos.x = 1/fColumns * (float)x;
-					rects[index].pos.y = 1/fRows * (float)y;
-					rects[index].size.x = 1/fColumns;
-					rects[index].size.y = 1/fRows;
+					rects[index].pos.x = 1 / fColumns * (float) x;
+					rects[index].pos.y = 1 / fRows * (float) y;
+					rects[index].size.x = 1 / fColumns;
+					rects[index].size.y = 1 / fRows;
 
 					index++;
 				}
@@ -153,7 +162,7 @@ public class CommonMath {
 	}
 
 	public static class Rectangle2D {
-		
+
 		public Vector2 pos = new Vector2();
 		public Vector2 size = new Vector2();
 	}
