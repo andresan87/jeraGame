@@ -36,7 +36,7 @@ public class Classic2DViewer implements SceneViewer {
 		// maxScroll.y = Math.max(screenSize.y, max.y);
 	}
 	
-	public Vector2 computeAbsolutPosition(Vector2 v) {
+	public Vector2 computeAbsolutePosition(Vector2 v) {
 		return v.sub(scrollOrigin);
 	}
 
