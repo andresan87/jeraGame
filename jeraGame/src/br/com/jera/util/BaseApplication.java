@@ -8,6 +8,6 @@ public interface BaseApplication {
 	public void create(GraphicDevice device, InputListener input);
 	public void loadResources();
 	public void resetFrameBuffer(int width, int height);
-	public void update();
+	public void update(final long lastFrameDeltaTimeMS);
 	public void draw();
 }
