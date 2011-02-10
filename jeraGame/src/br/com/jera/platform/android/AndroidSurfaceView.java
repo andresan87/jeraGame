@@ -40,6 +40,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	public Vector2 getLastTouch(final int t) {
 		assert (t < MAXIMUM_TOUCHES);
+		assert (lastTouch != null);
 		if (lastTouch[t] != null)
 			return new Vector2(lastTouch[t]);
 		else
@@ -48,6 +49,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	private void resetTouchMove(final int t) {
 		assert (t < MAXIMUM_TOUCHES);
+		assert (lastTouch != null);
 		touchMove[t].x = 0;
 		touchMove[t].y = 0;
 	}
@@ -55,6 +57,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	@Override
 	public Vector2 getTouchMove(final int t) {
 		assert (t < MAXIMUM_TOUCHES);
+		assert (lastTouch != null);
 		if (touchMove[t] != null)
 			return new Vector2(touchMove[t]);
 		else
@@ -110,7 +113,9 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 		public void onDrawFrame(GL10 gl) {
 			device.setTextureFilter(GraphicDevice.TEXTURE_FILTER.LINEAR);
-			app.update();
+			final long delta = System.currentTimeMillis()-lastDrawTime;
+			lastDrawTime = System.currentTimeMillis();
+			app.update(delta);
 			app.draw();
 		}
 
@@ -122,12 +127,14 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 			device = new GLESGraphicDevice(gl, context);
 			app.create(device, input);
 			app.loadResources();
+			lastDrawTime = System.currentTimeMillis();
 		}
 
 		private Context context;
 		private GraphicDevice device;
 		private BaseApplication app;
 		private InputListener input;
+		private long lastDrawTime;
 	}
 
 	@Override
