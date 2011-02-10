@@ -1,6 +1,8 @@
 package br.com.jera.util;
 
-import br.com.jera.graphic.GraphicDevice;
+import java.util.LinkedList;
+import java.util.ListIterator;
+
 import br.com.jera.graphic.Sprite;
 import br.com.jera.util.CommonMath.Vector2;
 
@@ -22,13 +24,14 @@ public class SpriteTileMap implements DisplayableEntity {
 			assert (numTiles == tileIndices.length);
 			this.width = width;
 			this.height = height;
-			tiles = new Tile[numTiles];
+			tiles = new LinkedList<Tile>();
 
 			int index = 0;
 			for (float y = 0; y < (float) height; y += 1.0f) {
 				for (float x = 0; x < (float) width; x += 1.0f) {
 					if (tileIndices[index] >= 0) {
-						tiles[index] = new Tile(tileIndices[index], new Vector2(x * tileSize.x, y * tileSize.y));
+						Tile tile = new Tile(tileIndices[index], new Vector2(x * tileSize.x, y * tileSize.y));
+						tiles.add(tile);
 					}
 					index++;
 				}
@@ -43,23 +46,17 @@ public class SpriteTileMap implements DisplayableEntity {
 			return height;
 		}
 
-		final public Tile getTile(final int idx) {
-			assert (idx < width * height);
-			return tiles[idx];
-		}
-
 		public int getTileCount() {
-			return tiles.length;
+			return tiles.size();
 		}
 
 		private int width, height;
-		private Tile[] tiles;
+		LinkedList<Tile> tiles;
 	}
 
-	public SpriteTileMap(GraphicDevice device, Sprite tileSet, TileMap tileMap) {
-		this.device = device;
+	public SpriteTileMap(final int tileSetId, TileMap tileMap) {
 		this.tileMap = tileMap;
-		this.tileSet = tileSet;
+		this.tileSetId = tileSetId;
 	}
 
 	public void setOrigin(final Vector2 pos) {
@@ -68,18 +65,19 @@ public class SpriteTileMap implements DisplayableEntity {
 
 	@Override
 	public void draw(SceneViewer viewer, SpriteResourceManager res) {
-		final int tileCount = tileMap.getTileCount();
-		for (int t = 0; t < tileCount; t++) {
-			tileSet.draw(origin.add(viewer.getOrthogonalViewerPos()).add(tileMap.getTile(t).pos),
-					tileSet.getFrameSize(), 0, new Vector2(0,
-					0), tileMap.getTile(t).tile, true);
+		Sprite sprite = res.getSprite(tileSetId);
+		ListIterator<Tile> iter = tileMap.tiles.listIterator();
+		while (iter.hasNext()) {
+			Tile tile = iter.next();
+			sprite.draw((origin.sub(viewer.getOrthogonalViewerPos()).add(tile.pos)), sprite.getFrameSize(), 0, new Vector2(0, 0),
+					tile.tile, true);
 		}
 	}
 
-	Sprite tileSet;
-	Vector2 origin = new Vector2();
-	GraphicDevice device;
-	TileMap tileMap;
+	private int tileSetId;
+	private Vector2 origin = new Vector2();
+	private TileMap tileMap;
+
 	@Override
 	public Vector2 getMin(SpriteResourceManager res) {
 		return new Vector2(origin);
@@ -87,7 +85,13 @@ public class SpriteTileMap implements DisplayableEntity {
 
 	@Override
 	public Vector2 getMax(SpriteResourceManager res) {
+		Sprite sprite = res.getSprite(tileSetId);
 		return new Vector2(getMin(res).add(
-				new Vector2((float)tileMap.getWidth()*tileSet.getFrameSize().x, (float)tileMap.getHeight()*tileSet.getFrameSize().y)));
+				new Vector2((float) tileMap.getWidth() * sprite.getFrameSize().x, (float) tileMap.getHeight() * sprite.getFrameSize().y)));
+	}
+
+	@Override
+	public void update(long lastFrameDeltaTimeMS) {
+		// dummy
 	}
 }

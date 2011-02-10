@@ -7,4 +7,5 @@ public interface DisplayableEntity {
 	public void draw(final SceneViewer viewer, SpriteResourceManager res);
 	public Vector2 getMin(SpriteResourceManager res);
 	public Vector2 getMax(SpriteResourceManager res);
+	public void update(long lastFrameDeltaTimeMS);
 }
