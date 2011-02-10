@@ -67,7 +67,7 @@ public class SpriteTileMap implements DisplayableEntity {
 	}
 
 	@Override
-	public void draw(SceneViewer viewer) {
+	public void draw(SceneViewer viewer, SpriteResourceManager res) {
 		final int tileCount = tileMap.getTileCount();
 		for (int t = 0; t < tileCount; t++) {
 			tileSet.draw(origin.add(viewer.getOrthogonalViewerPos()).add(tileMap.getTile(t).pos),
@@ -81,13 +81,13 @@ public class SpriteTileMap implements DisplayableEntity {
 	GraphicDevice device;
 	TileMap tileMap;
 	@Override
-	public Vector2 getMin() {
+	public Vector2 getMin(SpriteResourceManager res) {
 		return new Vector2(origin);
 	}
 
 	@Override
-	public Vector2 getMax() {
-		return new Vector2(getMin().add(
+	public Vector2 getMax(SpriteResourceManager res) {
+		return new Vector2(getMin(res).add(
 				new Vector2((float)tileMap.getWidth()*tileSet.getFrameSize().x, (float)tileMap.getHeight()*tileSet.getFrameSize().y)));
 	}
 }
