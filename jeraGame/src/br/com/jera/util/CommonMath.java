@@ -68,6 +68,10 @@ public class CommonMath {
 			this.x = x;
 			this.y = y;
 		}
+		
+		public float length() {
+			return (float) Math.sqrt(x*x + y*y);
+		}
 
 		public Vector2 add(Vector2 v) {
 			return new Vector2(x + v.x, y + v.y);
