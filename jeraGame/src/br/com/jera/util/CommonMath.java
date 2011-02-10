@@ -5,6 +5,7 @@ public class CommonMath {
 	public final static float PI = 3.141592654f;
 	public final static float _2PI = PI*2.0f;
 	public final static float HALF_PI = PI/2.0f;
+	public final static float QUARTER_PI = HALF_PI/2.0f;
 
 	public static class Vector4 {
 		public Vector4() {
@@ -71,6 +72,10 @@ public class CommonMath {
 		
 		public float length() {
 			return (float) Math.sqrt(x*x + y*y);
+		}
+		
+		public Vector2 normalize() {
+			return (this.multiply(1.0f/length()));
 		}
 
 		public Vector2 add(Vector2 v) {
