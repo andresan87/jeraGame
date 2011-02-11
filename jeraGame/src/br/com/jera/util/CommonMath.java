@@ -93,6 +93,10 @@ public class CommonMath {
 		public Vector2 multiply(Vector2 v) {
 			return new Vector2(x * v.x, y * v.y);
 		}
+		
+		public float distance(Vector2 v) {
+			return sub(v).length();
+		}
 
 		public float x, y;
 	}

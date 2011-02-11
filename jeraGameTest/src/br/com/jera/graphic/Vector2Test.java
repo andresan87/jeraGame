@@ -31,6 +31,11 @@ public class Vector2Test extends AndroidTestCase {
 		assertEquals("length should match", 10.0f, new Vector2(8, 6).length());
 	}
 
+	public void testDistance() {
+		Vector2 a = new Vector2(-8, -6);
+		assertEquals("distance should match", 20.0f, a.distance(new Vector2(8, 6)));
+	}
+
 	public void testNormalize() {
 		Vector2 a = new Vector2(-112, 0).normalize();
 		assertEquals("a.x should match", -1.0f, a.x);
