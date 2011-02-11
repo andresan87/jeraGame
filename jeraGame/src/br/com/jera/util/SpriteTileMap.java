@@ -1,6 +1,7 @@
 package br.com.jera.util;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ListIterator;
 
 import br.com.jera.graphic.Sprite;
@@ -8,10 +9,15 @@ import br.com.jera.util.CommonMath.Vector2;
 
 public class SpriteTileMap implements DisplayableEntity {
 
-	public static class Tile {
+	public static class Tile implements Comparable<Tile> {
 		public Tile(final int tile, final Vector2 pos) {
 			this.pos = pos;
 			this.tile = tile;
+		}
+
+		@Override
+		public int compareTo(Tile another) {
+			return tile - another.tile;
 		}
 
 		public Vector2 pos;
@@ -24,7 +30,7 @@ public class SpriteTileMap implements DisplayableEntity {
 			assert (numTiles == tileIndices.length);
 			this.width = width;
 			this.height = height;
-			tiles = new LinkedList<Tile>();
+			tiles = new ArrayList<Tile>();
 
 			int index = 0;
 			for (float y = 0; y < (float) height; y += 1.0f) {
@@ -36,6 +42,7 @@ public class SpriteTileMap implements DisplayableEntity {
 					index++;
 				}
 			}
+			Collections.sort(tiles);
 		}
 
 		public int getWidth() {
@@ -51,7 +58,7 @@ public class SpriteTileMap implements DisplayableEntity {
 		}
 
 		private int width, height;
-		LinkedList<Tile> tiles;
+		public ArrayList<Tile> tiles;
 	}
 
 	public SpriteTileMap(final int tileSetId, TileMap tileMap) {
@@ -65,8 +72,8 @@ public class SpriteTileMap implements DisplayableEntity {
 
 	@Override
 	public void draw(SceneViewer viewer, SpriteResourceManager res) {
-		Sprite sprite = res.getSprite(tileSetId);
 		ListIterator<Tile> iter = tileMap.tiles.listIterator();
+		Sprite sprite = res.getSprite(tileSetId);
 		while (iter.hasNext()) {
 			Tile tile = iter.next();
 			sprite.draw((origin.sub(viewer.getOrthogonalViewerPos()).add(tile.pos)), sprite.getFrameSize(), 0, new Vector2(0, 0),
