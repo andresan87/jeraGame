@@ -10,17 +10,22 @@ import br.com.jera.util.CommonMath.Vector2;
 public class SpriteTileMap implements DisplayableEntity {
 
 	public static class Tile implements Comparable<Tile> {
-		public Tile(final int tile, final Vector2 pos) {
+		public Tile(final int tile, final Vector2 pos, Vector2 size) {
 			this.pos = pos;
 			this.tile = tile;
+			this.size = size;
 		}
 
 		@Override
 		public int compareTo(Tile another) {
 			return tile - another.tile;
 		}
+		
+		public Vector2 getTileCenter() {
+			return pos.add(size.multiply(0.5f));
+		}
 
-		public Vector2 pos;
+		public Vector2 pos, size;
 		public int tile;
 	}
 
@@ -36,7 +41,7 @@ public class SpriteTileMap implements DisplayableEntity {
 			for (float y = 0; y < (float) height; y += 1.0f) {
 				for (float x = 0; x < (float) width; x += 1.0f) {
 					if (tileIndices[index] >= 0) {
-						Tile tile = new Tile(tileIndices[index], new Vector2(x * tileSize.x, y * tileSize.y));
+						Tile tile = new Tile(tileIndices[index], new Vector2(x * tileSize.x, y * tileSize.y), tileSize);
 						tiles.add(tile);
 					}
 					index++;
