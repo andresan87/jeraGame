@@ -22,16 +22,23 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	private Vector2[] touchMove = new Vector2[MAXIMUM_TOUCHES];
 	private Vector2[] previousTouch = new Vector2[MAXIMUM_TOUCHES];
 
+	private Renderer renderer;
+
 	public AndroidSurfaceView(Context context, BaseApplication app) {
 		super(context);
 		assert (app != null);
-		setRenderer(new Renderer(context, this, app));
+		renderer = new Renderer(context, this, app);
+		setRenderer(renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 
 		for (int t = 0; t < MAXIMUM_TOUCHES; t++) {
 			touchMove[t] = new Vector2();
 			previousTouch[t] = new Vector2();
 		}
+	}
+
+	public void setApp(BaseApplication app) {
+		renderer.setApp(app);
 	}
 
 	public int getMaximumTouches() {
@@ -113,7 +120,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 		public void onDrawFrame(GL10 gl) {
 			device.setTextureFilter(GraphicDevice.TEXTURE_FILTER.LINEAR);
-			final long delta = System.currentTimeMillis()-lastDrawTime;
+			final long delta = System.currentTimeMillis() - lastDrawTime;
 			lastDrawTime = System.currentTimeMillis();
 			app.update(delta);
 			app.draw();
@@ -128,6 +135,10 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 			app.create(device, input);
 			app.loadResources();
 			lastDrawTime = System.currentTimeMillis();
+		}
+
+		public void setApp(BaseApplication app) {
+			this.app = app;
 		}
 
 		private Context context;
