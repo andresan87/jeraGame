@@ -14,4 +14,5 @@ public interface InputListener {
 
 	public int getTouchCount();
 	public int getMaximumTouches();
+	public boolean hasTouchOn(final Vector2 pos, final Vector2 area);
 }

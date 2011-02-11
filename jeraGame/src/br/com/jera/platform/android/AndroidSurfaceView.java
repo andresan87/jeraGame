@@ -15,7 +15,7 @@ import br.com.jera.util.CommonMath.Vector2;
 public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	private static final int MAXIMUM_TOUCHES = 5;
-	private int touchCont;
+	private int touchCount;
 
 	private Vector2[] lastTouch = new Vector2[MAXIMUM_TOUCHES];
 	private Vector2[] currentTouch = new Vector2[MAXIMUM_TOUCHES];
@@ -82,8 +82,8 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	@Override
 	public boolean onTouchEvent(final MotionEvent event) {
 
-		touchCont = Math.min(MAXIMUM_TOUCHES, event.getPointerCount());
-		for (int t = 0; t < touchCont; t++) {
+		touchCount = Math.min(MAXIMUM_TOUCHES, event.getPointerCount());
+		for (int t = 0; t < touchCount; t++) {
 			final float x = event.getX(t);
 			final float y = event.getY(t);
 			resetTouchMove(t);
@@ -103,7 +103,6 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 				currentTouch[t] = new Vector2(x, y);
 				break;
 			}
-			;
 			previousTouch[t].x = x;
 			previousTouch[t].y = y;
 		}
@@ -166,6 +165,20 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	@Override
 	public int getTouchCount() {
-		return touchCont;
+		return touchCount;
+	}
+
+	@Override
+	public boolean hasTouchOn(final Vector2 pos, final Vector2 area) {
+		for (int t = 0; t < touchCount; t++) {
+			final Vector2 current = currentTouch[t];
+			if (current != null) {
+				if (!(current.x < pos.x || current.y < pos.y
+					||current.x > pos.x+area.x || current.y > pos.y+area.y)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
