@@ -181,4 +181,18 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean isLastTouchOn(final Vector2 pos, final Vector2 area) {
+		for (int t = 0; t < touchCount; t++) {
+			final Vector2 last = lastTouch[t];
+			if (last != null) {
+				if (!(last.x < pos.x || last.y < pos.y
+					||last.x > pos.x+area.x || last.y > pos.y+area.y)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
