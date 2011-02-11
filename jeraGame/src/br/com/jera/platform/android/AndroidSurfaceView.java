@@ -120,7 +120,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 		public void onDrawFrame(GL10 gl) {
 			device.setTextureFilter(GraphicDevice.TEXTURE_FILTER.LINEAR);
-			final long delta = System.currentTimeMillis() - lastDrawTime;
+			final long delta = Math.min(System.currentTimeMillis() - lastDrawTime, MAX_DELTA_TIME);
 			lastDrawTime = System.currentTimeMillis();
 			app.update(delta);
 			app.draw();
@@ -146,6 +146,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		private BaseApplication app;
 		private InputListener input;
 		private long lastDrawTime;
+		private final long MAX_DELTA_TIME = 1000;
 	}
 
 	@Override
