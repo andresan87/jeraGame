@@ -10,4 +10,5 @@ public interface BaseApplication {
 	public void resetFrameBuffer(int width, int height);
 	public void update(final long lastFrameDeltaTimeMS);
 	public void draw();
+	public String getStateName();
 }
