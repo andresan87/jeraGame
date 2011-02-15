@@ -6,6 +6,13 @@ import br.com.jera.util.CommonMath.Vector4;
 import br.com.jera.util.CommonMath.Vertex;
 
 public interface GraphicDevice {
+	
+	public static final Vector4 COLOR_RED = new Vector4(1, 0, 0, 1);
+	public static final Vector4 COLOR_GREEN = new Vector4(0, 1, 0, 1);
+	public static final Vector4 COLOR_BLUE = new Vector4(0, 0, 1, 1);
+	public static final Vector4 COLOR_WHITE = new Vector4(1, 1, 1, 1);
+	public static final Vector4 COLOR_BLACK = new Vector4(0, 0, 0, 1);
+	public static final Vector4 COLOR_YELLOW = new Vector4(0, 1, 1, 1);
 
 	public void setup3DView(int width, int height);
 	public void setup2DView(int width, int height);
