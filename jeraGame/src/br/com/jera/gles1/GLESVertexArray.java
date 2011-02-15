@@ -8,6 +8,7 @@ import br.com.jera.graphic.VertexArray;
 import br.com.jera.util.CommonMath;
 import br.com.jera.util.CommonMath.PRIMITIVE_TYPE;
 import br.com.jera.util.CommonMath.Vector3;
+import br.com.jera.util.CommonMath.Vector4;
 import br.com.jera.util.CommonMath.Vertex;
 
 public class GLESVertexArray implements VertexArray {
@@ -19,7 +20,7 @@ public class GLESVertexArray implements VertexArray {
 	private int vertexCount;
 	private PRIMITIVE_TYPE primitiveType;
 	private int numVertices;
-	
+
 	public int getPositionBufferLength() {
 		return positionsBuffer.array().length;
 	}
@@ -31,11 +32,11 @@ public class GLESVertexArray implements VertexArray {
 	public int getTexCoordsBufferLength() {
 		return texCoordsBuffer.array().length;
 	}
-	
+
 	public int getVertexCount() {
 		return vertexCount;
 	}
-	
+
 	public PRIMITIVE_TYPE getPrimitiveType() {
 		return primitiveType;
 	}
@@ -78,24 +79,38 @@ public class GLESVertexArray implements VertexArray {
 			positionsBuffer = FloatBuffer.wrap(positions);
 		if (nTexCoords == vertices.length)
 			texCoordsBuffer = FloatBuffer.wrap(texCoords);
-		
+
 		numVertices = vertices.length;
 	}
 
 	@Override
 	public void setVertices(float[] vertices) {
-		assert(vertices.length/3 == numVertices);
+		assert (vertices.length / 3 == numVertices);
 		positionsBuffer = FloatBuffer.wrap(vertices);
 	}
-	
+
+	@Override
+	public void setColor(Vector4 color) {
+		final int stride = 4;
+		final int numFloats = stride * numVertices;
+		float[] vertices = new float[numFloats];
+		for (int v = 0; v < numFloats; v += stride) {
+			vertices[v + 0] = color.x;
+			vertices[v + 1] = color.y;
+			vertices[v + 2] = color.z;
+			vertices[v + 3] = color.w;
+		}
+		colorsBuffer = FloatBuffer.wrap(vertices);
+	}
+
 	@Override
 	public void drawGeometry(Vector3 pos, Vector3 rot, Vector3 scale) {
 
 		glDevice.glMatrixMode(GL10.GL_MODELVIEW);
 		glDevice.glLoadIdentity();
-		glDevice.glScalef(scale.x, scale.y,-scale.z); // force left-handed mode
+		glDevice.glScalef(scale.x, scale.y, -scale.z); // force left-handed mode
 		glDevice.glTranslatef(pos.x, pos.y, pos.z);
-		
+
 		if (rot.x != 0.0f)
 			glDevice.glRotatef(rot.x, 1, 0, 0);
 		if (rot.y != 0.0f)
@@ -126,7 +141,7 @@ public class GLESVertexArray implements VertexArray {
 		if (texCoordsBuffer != null)
 			glDevice.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 	}
-	
+
 	private int getGLPrimitiveType(CommonMath.PRIMITIVE_TYPE type) {
 		switch (type) {
 		case TRIANGLE_FAN:

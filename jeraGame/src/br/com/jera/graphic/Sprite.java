@@ -6,6 +6,7 @@ import br.com.jera.util.CommonMath.PRIMITIVE_TYPE;
 import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.CommonMath.Vector3;
+import br.com.jera.util.CommonMath.Vector4;
 import br.com.jera.util.CommonMath.Vertex;
 
 public class Sprite {
@@ -58,6 +59,13 @@ public class Sprite {
 		return frameSize;
 	}
 
+	public void setColor(Vector4 color) {
+		final int numVAs = vertexArrays.length;
+		for (int t = 0; t < numVAs; t++) {
+			vertexArrays[t].setColor(color);
+		}
+	}
+
 	public void draw(Vector2 pos, float angle, Vector2 normalizedOrigin) {
 		draw(pos, frameSize, angle, normalizedOrigin, 0, false);
 	}
@@ -73,15 +81,15 @@ public class Sprite {
 	public void draw(Vector2 pos, Vector2 normalizedOrigin, int frame) {
 		draw(pos, frameSize, 0, normalizedOrigin, frame, false);
 	}
-	
+
 	public void draw(Vector2 pos, Vector2 size, float angle, Vector2 normalizedOrigin, int frame, boolean roundUpPosition) {
 		assert (frame < getNumFrames() && frame >= 0);
 
 		texture.bindTexture();
 
 		if (roundUpPosition) {
-			pos.x = (float)Math.floor(pos.x);
-			pos.y = (float)Math.floor(pos.y);
+			pos.x = (float) Math.floor(pos.x);
+			pos.y = (float) Math.floor(pos.y);
 		}
 
 		Vector2 bitmapSize = frameSize;
