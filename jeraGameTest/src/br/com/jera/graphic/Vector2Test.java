@@ -57,9 +57,25 @@ public class Vector2Test extends AndroidTestCase {
 		assertEquals("a.y should match", 3.0f, a.y);
 	}
 
-	public void textComputeSpriteOriginOffset() {
+	public void testComputeSpriteOriginOffset() {
 		Vector2 v = CommonMath.computeSpriteOriginOffset(new Vector2(100, 50), new Vector2(0.5f, 0.5f));
 		assertEquals("v.x should match", -50.0f, v.x);
 		assertEquals("v.y should match", -25.0f, v.y);
+	}
+
+	public void testIsPointInRect() {
+		assertEquals("return value should match", true,
+				CommonMath.isPointInRect(new Vector2(0, 0), new Vector2(100, 100), new Vector2(0.5f, 0.5f), new Vector2(49, 49)));
+		assertEquals("return value should match", true,
+				CommonMath.isPointInRect(new Vector2(0, 0), new Vector2(100, 100), new Vector2(0.5f, 0.5f), new Vector2(-49, -49)));
+		assertEquals("return value should match", false,
+				CommonMath.isPointInRect(new Vector2(0, 0), new Vector2(100, 100), new Vector2(0.5f, 0.5f), new Vector2(51, 51)));
+		assertEquals("return value should match", false,
+				CommonMath.isPointInRect(new Vector2(0, 0), new Vector2(100, 100), new Vector2(0.5f, 0.5f), new Vector2(-51, -51)));
+
+		assertEquals("return value should match", true,
+				CommonMath.isPointInRect(new Vector2(100, 100), new Vector2(50, 50), new Vector2(0.0f, 0.0f), new Vector2(101, 101)));
+		assertEquals("return value should match", false,
+				CommonMath.isPointInRect(new Vector2(100, 100), new Vector2(50, 50), new Vector2(0.0f, 0.0f), new Vector2(151, 151)));
 	}
 }

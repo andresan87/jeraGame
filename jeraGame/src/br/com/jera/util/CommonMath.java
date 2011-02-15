@@ -3,9 +3,9 @@
 public class CommonMath {
 
 	public final static float PI = 3.141592654f;
-	public final static float _2PI = PI*2.0f;
-	public final static float HALF_PI = PI/2.0f;
-	public final static float QUARTER_PI = HALF_PI/2.0f;
+	public final static float _2PI = PI * 2.0f;
+	public final static float HALF_PI = PI / 2.0f;
+	public final static float QUARTER_PI = HALF_PI / 2.0f;
 
 	public static class Vector4 {
 		public Vector4() {
@@ -69,13 +69,13 @@ public class CommonMath {
 			this.x = x;
 			this.y = y;
 		}
-		
+
 		public float length() {
-			return (float) Math.sqrt(x*x + y*y);
+			return (float) Math.sqrt(x * x + y * y);
 		}
-		
+
 		public Vector2 normalize() {
-			return (this.multiply(1.0f/length()));
+			return (this.multiply(1.0f / length()));
 		}
 
 		public Vector2 add(Vector2 v) {
@@ -93,7 +93,7 @@ public class CommonMath {
 		public Vector2 multiply(Vector2 v) {
 			return new Vector2(x * v.x, y * v.y);
 		}
-		
+
 		public float distance(Vector2 v) {
 			return sub(v).length();
 		}
@@ -116,6 +116,16 @@ public class CommonMath {
 			return vertexCount - 2;
 			// TODO lines, points...
 		}
+	}
+
+	public static boolean isPointInRect(final Vector2 pos, final Vector2 size, final Vector2 p) {
+		return isPointInRect(pos, size, new Vector2(0, 0), p);
+	}
+
+	public static boolean isPointInRect(final Vector2 pos, final Vector2 size, final Vector2 normalizedOrigin, final Vector2 p) {
+		final Vector2 min = new Vector2(pos.sub(size.multiply(normalizedOrigin)));
+		final Vector2 max = new Vector2(pos.add(size.multiply(new Vector2(1, 1).sub(normalizedOrigin))));
+		return !(p.x < min.x || p.y < min.y || p.x > max.x || p.y > max.y);
 	}
 
 	public static float getAngle(Vector2 v) {

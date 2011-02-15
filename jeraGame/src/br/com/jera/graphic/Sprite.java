@@ -72,10 +72,6 @@ public class Sprite {
 		draw(pos, frameSize, 0, normalizedOrigin, frame, false);
 	}
 	
-	public boolean isPointInRect(final Vector2 spritePos, final Vector2 p) {
-		return !(p.x < spritePos.x || p.y < spritePos.y || p.x > spritePos.x+frameSize.x || p.y > spritePos.y+frameSize.y);
-	}
-
 	public void draw(Vector2 pos, Vector2 size, float angle, Vector2 normalizedOrigin, int frame, boolean roundUpPosition) {
 		assert (frame < getNumFrames() && frame >= 0);
 

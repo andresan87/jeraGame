@@ -20,7 +20,7 @@ public class SpriteTileMap implements DisplayableEntity {
 		public int compareTo(Tile another) {
 			return tile - another.tile;
 		}
-		
+
 		public Vector2 getTileCenter() {
 			return pos.add(size.multiply(0.5f));
 		}
@@ -60,6 +60,17 @@ public class SpriteTileMap implements DisplayableEntity {
 
 		public int getTileCount() {
 			return tiles.size();
+		}
+
+		public boolean isPointOnRoad(Vector2 p) {
+			ListIterator<Tile> iter = tiles.listIterator();
+			while (iter.hasNext()) {
+				Tile tile = iter.next();
+				if (CommonMath.isPointInRect(tile.pos, tile.size, p)) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		private int width, height;
