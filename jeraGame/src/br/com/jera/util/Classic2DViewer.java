@@ -28,6 +28,7 @@ public class Classic2DViewer implements SceneViewer {
 		return new Vector3(new Vector2(scrollOrigin), 0);
 	}
 
+	// TODO se a dimensão do cenário for menor que da tela, sempre centralizar o cenario
 	public void setScrollBounds(Vector2 min, Vector2 max, Vector2 screenSize) {
 		minScroll = min;
 		maxScroll.x = max.x - screenSize.x;
@@ -35,9 +36,13 @@ public class Classic2DViewer implements SceneViewer {
 		// maxScroll.x = Math.max(screenSize.x, max.x);
 		// maxScroll.y = Math.max(screenSize.y, max.y);
 	}
-	
+
 	public Vector2 computeAbsolutePosition(Vector2 v) {
 		return v.sub(scrollOrigin);
+	}
+	
+	public Vector2 computeRelativePosition(Vector2 v) {
+		return v.add(scrollOrigin);
 	}
 
 	private Vector2 scrollOrigin = new Vector2();

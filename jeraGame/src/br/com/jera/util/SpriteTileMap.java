@@ -77,6 +77,10 @@ public class SpriteTileMap implements DisplayableEntity {
 		public ArrayList<Tile> tiles;
 	}
 
+	public boolean isPointOnRoad(Vector2 p) {
+		return tileMap.isPointOnRoad(p);
+	}
+	
 	public SpriteTileMap(final int tileSetId, TileMap tileMap) {
 		this.tileMap = tileMap;
 		this.tileSetId = tileSetId;
