@@ -185,8 +185,15 @@ public class CommonMath {
 	}
 
 	public static class Rectangle2D {
-
-		public Vector2 pos = new Vector2();
-		public Vector2 size = new Vector2();
+		public Rectangle2D() {
+			this.pos = new Vector2();
+			this.size = new Vector2();
+		}
+		public Rectangle2D(Vector2 pos, Vector2 size) {
+			this.pos = pos;
+			this.size = size;
+		}
+		public Vector2 pos;
+		public Vector2 size;
 	}
 }

@@ -1,6 +1,6 @@
 package br.com.jera.util;
 
-import br.com.jera.graphic.GraphicDevice;
+import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.CommonMath.Vector3;
 
@@ -38,10 +38,10 @@ public class Classic2DViewer implements SceneViewer {
 		// maxScroll.y = Math.max(screenSize.y, max.y);
 	}
 	
-	public boolean isPointOnBorder(GraphicDevice device, Vector2 p, final float width) {
+	public boolean isPointOnBorder(Vector2 p, final float width, Rectangle2D clientRect) {
 		final Vector2 widthVector = new Vector2(width, width);
-		final Vector2 min = widthVector;
-		final Vector2 max = device.getScreenSize().sub(widthVector);
+		final Vector2 min = widthVector.add(clientRect.pos);
+		final Vector2 max = clientRect.pos.add(clientRect.size).sub(widthVector);
 		return !CommonMath.isPointInRect(min, max.sub(min), p);
 	}
 
