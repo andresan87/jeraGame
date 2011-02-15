@@ -1,4 +1,4 @@
-package br.com.jera.graphic;
+﻿package br.com.jera.graphic;
 
 import android.test.AndroidTestCase;
 import br.com.jera.util.CommonMath.Vector2;

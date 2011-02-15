@@ -15,7 +15,7 @@ public class Classic2DViewer implements SceneViewer {
 		scrollOrigin.y = Math.max(Math.min(origin.y, maxScroll.y), minScroll.y);
 	}
 
-	public void scroll(Vector2 scroll, Vector2 screenSize) {
+	public void scroll(Vector2 scroll) {
 		scrollTo(getOrthogonalViewerPos().add(scroll));
 	}
 
@@ -37,8 +37,12 @@ public class Classic2DViewer implements SceneViewer {
 		// maxScroll.x = Math.max(screenSize.x, max.x);
 		// maxScroll.y = Math.max(screenSize.y, max.y);
 	}
-	
+
 	public boolean isPointOnBorder(Vector2 p, final float width, Rectangle2D clientRect) {
+		if (p.x < clientRect.pos.x || p.y < clientRect.pos.y
+			|| p.x > clientRect.pos.x+clientRect.size.x || p.y > clientRect.pos.y+clientRect.size.y) {
+			return false;
+		}
 		final Vector2 widthVector = new Vector2(width, width);
 		final Vector2 min = widthVector.add(clientRect.pos);
 		final Vector2 max = clientRect.pos.add(clientRect.size).sub(widthVector);
@@ -48,7 +52,7 @@ public class Classic2DViewer implements SceneViewer {
 	public Vector2 computeAbsolutePosition(Vector2 v) {
 		return v.sub(scrollOrigin);
 	}
-	
+
 	public Vector2 computeRelativePosition(Vector2 v) {
 		return v.add(scrollOrigin);
 	}
