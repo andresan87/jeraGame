@@ -10,6 +10,8 @@ import br.com.jera.util.CommonMath.Vertex;
 
 public class Sprite {
 
+	public static final Vector2 centerOrigin = new Vector2(0.5f, 0.5f);
+
 	int rows, columns;
 	VertexArray[] vertexArrays;
 	private Texture texture;
