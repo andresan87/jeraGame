@@ -189,10 +189,20 @@ public class CommonMath {
 			this.pos = new Vector2();
 			this.size = new Vector2();
 		}
+
 		public Rectangle2D(Vector2 pos, Vector2 size) {
 			this.pos = pos;
 			this.size = size;
 		}
+
+		public Vector2 getCenter() {
+			return pos.add(size.multiply(0.5f));
+		}
+		
+		public boolean isPointInRectangle(Vector2 p) {
+			return isPointInRect(pos, size, p);
+		}
+
 		public Vector2 pos;
 		public Vector2 size;
 	}
