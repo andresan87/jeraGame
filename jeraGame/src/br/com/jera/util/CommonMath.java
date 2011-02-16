@@ -189,10 +189,23 @@ public class CommonMath {
 			this.pos = new Vector2();
 			this.size = new Vector2();
 		}
-
+		
 		public Rectangle2D(Vector2 pos, Vector2 size) {
 			this.pos = pos;
 			this.size = size;
+		}
+
+		public Rectangle2D(Vector2 pos, Vector2 size, Vector2 normalizedOrigin) {
+			this.pos = pos.sub(size.multiply(normalizedOrigin));
+			this.size = size;
+		}
+		
+		public Vector2 getMin() {
+			return new Vector2(pos);
+		}
+
+		public Vector2 getMax() {
+			return pos.add(size);
 		}
 
 		public Vector2 getCenter() {
@@ -201,6 +214,15 @@ public class CommonMath {
 		
 		public boolean isPointInRectangle(Vector2 p) {
 			return isPointInRect(pos, size, p);
+		}
+		
+		public boolean isIntersecting(final Rectangle2D rect) {
+			Vector2 thisMax = getMax();
+			Vector2 thisMin = getMin();
+			Vector2 otherMax = rect.getMax();
+			Vector2 otherMin = rect.getMin();
+			return !(thisMax.x < otherMin.x || thisMax.y < otherMin.y
+					|| thisMin.x > otherMax.x || thisMin.y > otherMax.y);
 		}
 
 		public Vector2 pos;

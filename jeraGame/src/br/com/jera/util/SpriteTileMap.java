@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.ListIterator;
 
 import br.com.jera.graphic.Sprite;
+import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
 
 public class SpriteTileMap implements DisplayableEntity {
@@ -120,5 +121,15 @@ public class SpriteTileMap implements DisplayableEntity {
 	@Override
 	public void update(long lastFrameDeltaTimeMS) {
 		// dummy
+	}
+
+	@Override
+	public int compareTo(DisplayableEntity another) {
+		return 0;
+	}
+
+	@Override
+	public boolean isVisible(SceneViewer viewer, Rectangle2D clientRect) {
+		return true;
 	}
 }
