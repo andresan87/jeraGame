@@ -98,6 +98,11 @@ public class CommonMath {
 			return sub(v).length();
 		}
 
+		public float squaredDistance(Vector2 v) {
+			final Vector2 r = sub(v);
+			return r.x * r.x + r.y * r.y;
+		}
+
 		public float x, y;
 	}
 
@@ -189,7 +194,7 @@ public class CommonMath {
 			this.pos = new Vector2();
 			this.size = new Vector2();
 		}
-		
+
 		public Rectangle2D(Vector2 pos, Vector2 size) {
 			this.pos = pos;
 			this.size = size;
@@ -199,7 +204,7 @@ public class CommonMath {
 			this.pos = pos.sub(size.multiply(normalizedOrigin));
 			this.size = size;
 		}
-		
+
 		public Vector2 getMin() {
 			return new Vector2(pos);
 		}
@@ -211,18 +216,17 @@ public class CommonMath {
 		public Vector2 getCenter() {
 			return pos.add(size.multiply(0.5f));
 		}
-		
+
 		public boolean isPointInRectangle(Vector2 p) {
 			return isPointInRect(pos, size, p);
 		}
-		
+
 		public boolean isIntersecting(final Rectangle2D rect) {
 			Vector2 thisMax = getMax();
 			Vector2 thisMin = getMin();
 			Vector2 otherMax = rect.getMax();
 			Vector2 otherMin = rect.getMin();
-			return !(thisMax.x < otherMin.x || thisMax.y < otherMin.y
-					|| thisMin.x > otherMax.x || thisMin.y > otherMax.y);
+			return !(thisMax.x < otherMin.x || thisMax.y < otherMin.y || thisMin.x > otherMax.x || thisMin.y > otherMax.y);
 		}
 
 		public Vector2 pos;
