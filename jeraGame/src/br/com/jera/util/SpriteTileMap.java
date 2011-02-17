@@ -7,6 +7,7 @@ import java.util.ListIterator;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
+import br.com.jera.util.CommonMath.Vector3;
 
 public class SpriteTileMap implements DisplayableEntity {
 
@@ -28,6 +29,15 @@ public class SpriteTileMap implements DisplayableEntity {
 
 		public Vector2 pos, size;
 		public int tile;
+	}
+	
+	public Vector2 get2DPos() {
+		return new Vector2(origin);
+	}
+
+	@Override
+	public Vector3 getPos() {
+		return new Vector3(origin, 0);
 	}
 
 	public static class TileMap {
