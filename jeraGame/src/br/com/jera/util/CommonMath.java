@@ -127,6 +127,14 @@ public class CommonMath {
 		return isPointInRect(pos, size, new Vector2(0, 0), p);
 	}
 
+	public static float radianToDegree(final float angle) {
+		return (angle / PI) * 180.0f;
+	}
+
+	public static float degreeToRadian(final float angle) {
+		return (angle / 180.0f) * PI;
+	}
+
 	public static boolean isPointInRect(final Vector2 pos, final Vector2 size, final Vector2 normalizedOrigin, final Vector2 p) {
 		final Vector2 min = new Vector2(pos.sub(size.multiply(normalizedOrigin)));
 		final Vector2 max = new Vector2(pos.add(size.multiply(new Vector2(1, 1).sub(normalizedOrigin))));
