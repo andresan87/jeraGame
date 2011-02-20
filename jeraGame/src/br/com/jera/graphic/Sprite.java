@@ -11,7 +11,9 @@ import br.com.jera.util.CommonMath.Vertex;
 
 public class Sprite {
 
+	public static final Vector2 zero = new Vector2(0.0f, 0.0f);
 	public static final Vector2 centerOrigin = new Vector2(0.5f, 0.5f);
+	public static final Vector2 defaultOrigin = new Vector2(0.0f, 0.0f);
 
 	int rows, columns;
 	VertexArray[] vertexArrays;

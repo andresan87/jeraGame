@@ -25,6 +25,14 @@ public class CommonMath {
 			z = v.z;
 			w = v.w;
 		}
+		
+		public Vector4 interpolate(Vector4 dest, float bias) {
+			return new Vector4(
+					x+(dest.x-x)*bias,
+					y+(dest.y-y)*bias,
+					z+(dest.z-z)*bias,
+					w+(dest.w-w)*bias);
+		}
 
 		public float x, y, z, w;
 	}
