@@ -6,6 +6,7 @@ import javax.microedition.khronos.opengles.GL10;
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
+import android.view.WindowManager;
 import br.com.jera.gles1.GLESGraphicDevice;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.input.InputListener;
@@ -30,6 +31,8 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		renderer = new Renderer(activity, this, app);
 		setRenderer(renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
+		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
 
 		for (int t = 0; t < MAXIMUM_TOUCHES; t++) {
 			touchMove[t] = new Vector2();

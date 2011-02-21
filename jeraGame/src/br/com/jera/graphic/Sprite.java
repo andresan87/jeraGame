@@ -68,6 +68,10 @@ public class Sprite {
 		}
 	}
 
+	public void draw(Vector2 pos, Vector2 size, Vector2 normalizedOrigin) {
+		draw(pos, size, 0, normalizedOrigin, 0, false);
+	}
+
 	public void draw(Vector2 pos, float angle, Vector2 normalizedOrigin) {
 		draw(pos, frameSize, angle, normalizedOrigin, 0, false);
 	}

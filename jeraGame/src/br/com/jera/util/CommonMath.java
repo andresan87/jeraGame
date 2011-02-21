@@ -130,6 +130,14 @@ public class CommonMath {
 			// TODO lines, points...
 		}
 	}
+	
+	public static Vector2 resizeToMatchWidth(Vector2 originalSize, final float width) {
+		return new Vector2(width, (originalSize.y/originalSize.x)*width);
+	}
+
+	public static Vector2 resizeToMatchHeight(Vector2 originalSize, final float height) {
+		return new Vector2((originalSize.x/originalSize.y)*height, height);
+	}
 
 	public static boolean isPointInRect(final Vector2 pos, final Vector2 size, final Vector2 p) {
 		return isPointInRect(pos, size, new Vector2(0, 0), p);
