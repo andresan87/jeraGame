@@ -3,7 +3,7 @@ package br.com.jera.platform.android;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
+import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import br.com.jera.gles1.GLESGraphicDevice;
@@ -24,10 +24,10 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	private Renderer renderer;
 
-	public AndroidSurfaceView(Context context, BaseApplication app) {
-		super(context);
+	public AndroidSurfaceView(Activity activity, BaseApplication app) {
+		super(activity);
 		assert (app != null);
-		renderer = new Renderer(context, this, app);
+		renderer = new Renderer(activity, this, app);
 		setRenderer(renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 
@@ -111,17 +111,19 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	public static class Renderer implements android.opengl.GLSurfaceView.Renderer {
 
-		public Renderer(Context context, InputListener input, BaseApplication app) {
+		public Renderer(Activity activity, InputListener input, BaseApplication app) {
 			this.app = app;
 			this.input = input;
-			this.context = context;
+			this.activity = activity;
 		}
 
 		public void onDrawFrame(GL10 gl) {
 			device.setTextureFilter(GraphicDevice.TEXTURE_FILTER.LINEAR);
 			final long delta = Math.min(System.currentTimeMillis() - lastDrawTime, MAX_DELTA_TIME);
 			lastDrawTime = System.currentTimeMillis();
-			app.update(delta);
+			if (app.update(delta) == BaseApplication.STATE.EXIT) {
+				activity.finish();
+			}
 			app.draw();
 		}
 
@@ -130,7 +132,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		}
 
 		public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-			device = new GLESGraphicDevice(gl, context);
+			device = new GLESGraphicDevice(gl, activity);
 			app.create(device, input);
 			app.loadResources();
 			lastDrawTime = System.currentTimeMillis();
@@ -140,7 +142,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 			this.app = app;
 		}
 
-		private Context context;
+		private Activity activity;
 		private GraphicDevice device;
 		private BaseApplication app;
 		private InputListener input;

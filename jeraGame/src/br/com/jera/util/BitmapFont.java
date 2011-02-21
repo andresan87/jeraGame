@@ -3,7 +3,6 @@
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.util.CommonMath.Vector2;
-import br.com.jera.util.CommonMath.Vector4;
 
 public class BitmapFont extends Sprite {
 
@@ -13,13 +12,11 @@ public class BitmapFont extends Sprite {
 		this.height = height;
 	}
 
-	public void draw(Vector2 pos, String ansiStr, Vector4 color) {
+	public void draw(Vector2 pos, String ansiStr) {
 		Vector2 cursor = new Vector2(pos);
 		final int length = ansiStr.length();
 		final Vector2 frameSize = super.getFrameSize();
 		final Vector2 origin = new Vector2(0, 0);
-
-		super.setColor(color);
 
 		for (int t = 0; t < length; t++) {
 			final char currentChar = ansiStr.charAt(t);
@@ -35,6 +32,14 @@ public class BitmapFont extends Sprite {
 			super.draw(cursor, frameSize, 0, origin, currentChar, true);
 			cursor.x += offset;
 		}
+	}
+
+	public float getOffset() {
+		return offset;
+	}
+
+	public float getHeight() {
+		return height;
 	}
 
 	private float offset, height;
