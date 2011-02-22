@@ -31,8 +31,6 @@ public class GLESGraphicDevice implements GraphicDevice {
 	public GLESGraphicDevice(GL10 gl, Context context) {
 		glDevice = gl;
 		this.context = context;
-		assert(glDevice != null);
-		assert(this.context != null);
 		setDepthTest(false);
 		setTextureFilter(TEXTURE_FILTER.LINEAR);
 		setTextureWrap(false);
@@ -245,5 +243,10 @@ public class GLESGraphicDevice implements GraphicDevice {
 	@Override
 	public ALPHA_MODE getAlphaMode() {
 		return alphaMode;
+	}
+
+	@Override
+	public void forceScreenClear() {
+		glDevice.glClear(GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_COLOR_BUFFER_BIT);
 	}
 }

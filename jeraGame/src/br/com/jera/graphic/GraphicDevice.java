@@ -52,4 +52,6 @@ public interface GraphicDevice {
 	
 	public void setDepthTest(boolean enable);
 	public boolean getDepthTest();
+	
+	public void forceScreenClear();
 }
