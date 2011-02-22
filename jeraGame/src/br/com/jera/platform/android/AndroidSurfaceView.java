@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 import android.view.WindowManager;
+import br.com.jera.audio.AudioPlayer;
 import br.com.jera.gles1.GLESGraphicDevice;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.input.InputListener;
@@ -27,12 +28,11 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	public AndroidSurfaceView(Activity activity, BaseApplication app) {
 		super(activity);
-		assert (app != null);
-		renderer = new Renderer(activity, this, app);
+		//assert (app != null);
+		renderer = new Renderer(activity, this, new AndroidAudioPlayer(activity), app);
 		setRenderer(renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
 
 		for (int t = 0; t < MAXIMUM_TOUCHES; t++) {
 			touchMove[t] = new Vector2();
@@ -49,35 +49,32 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	}
 
 	public Vector2 getLastTouch(final int t) {
-		assert (t < MAXIMUM_TOUCHES);
-		assert (lastTouch != null);
-		if (lastTouch[t] != null)
-			return new Vector2(lastTouch[t]);
+		Vector2 lastTouchRef = lastTouch[t]; 
+		if (lastTouchRef != null)
+			return new Vector2(lastTouchRef);
 		else
 			return null;
 	}
 
 	private void resetTouchMove(final int t) {
-		assert (t < MAXIMUM_TOUCHES);
-		assert (lastTouch != null);
 		touchMove[t].x = 0;
 		touchMove[t].y = 0;
 	}
 
 	@Override
 	public Vector2 getTouchMove(final int t) {
-		assert (t < MAXIMUM_TOUCHES);
-		assert (lastTouch != null);
-		if (touchMove[t] != null)
-			return new Vector2(touchMove[t]);
+		Vector2 touchMoveRef = touchMove[t];
+		if (touchMoveRef != null)
+			return new Vector2(touchMoveRef);
 		else
 			return null;
 	}
 
 	@Override
 	public Vector2 getCurrentTouch(final int t) {
-		if (currentTouch[t] != null)
-			return new Vector2(currentTouch[t]);
+		Vector2 currentTouchRef = currentTouch[t]; 
+		if (currentTouchRef != null)
+			return new Vector2(currentTouchRef);
 		else
 			return null;
 	}
@@ -114,10 +111,11 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	public static class Renderer implements android.opengl.GLSurfaceView.Renderer {
 
-		public Renderer(Activity activity, InputListener input, BaseApplication app) {
+		public Renderer(Activity activity, InputListener input, AudioPlayer player, BaseApplication app) {
 			this.app = app;
 			this.input = input;
 			this.activity = activity;
+			this.player = player;
 		}
 
 		public void onDrawFrame(GL10 gl) {
@@ -136,7 +134,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 		public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 			device = new GLESGraphicDevice(gl, activity);
-			app.create(device, input);
+			app.create(device, input, player);
 			app.loadResources();
 			lastDrawTime = System.currentTimeMillis();
 		}
@@ -151,6 +149,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		private InputListener input;
 		private long lastDrawTime;
 		private final long MAX_DELTA_TIME = 1000;
+		private AudioPlayer player;
 	}
 
 	@Override
