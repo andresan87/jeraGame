@@ -19,6 +19,8 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	private static final int MAXIMUM_TOUCHES = 5;
 	private int touchCount;
 
+	private int[] touchStepCount = new int[MAXIMUM_TOUCHES];
+	private KEY_STATE[] touchState = new KEY_STATE[MAXIMUM_TOUCHES];
 	private Vector2[] lastTouch = new Vector2[MAXIMUM_TOUCHES];
 	private Vector2[] currentTouch = new Vector2[MAXIMUM_TOUCHES];
 	private Vector2[] touchMove = new Vector2[MAXIMUM_TOUCHES];
@@ -109,6 +111,28 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		return true;
 	}
 
+	@Override
+	public void update() {
+		for (int t = 0; t < MAXIMUM_TOUCHES; t++) {
+			Vector2 currentTouchRef = currentTouch[t];
+			if (currentTouchRef != null) {
+				touchStepCount[t]++;
+				if (touchStepCount[t] == 1) {
+					touchState[t] = KEY_STATE.HIT;
+				} else {
+					touchState[t] = KEY_STATE.DOWN;
+				}
+			} else {
+				if (touchStepCount[t] != 0) {
+					touchState[t] = KEY_STATE.RELEASE;
+				} else {
+					touchState[t] = KEY_STATE.UP;
+				}
+				touchStepCount[t] = 0;
+			}
+		}		
+	}
+
 	public static class Renderer implements android.opengl.GLSurfaceView.Renderer {
 
 		public Renderer(Activity activity, InputListener input, AudioPlayer player, BaseApplication app) {
@@ -120,6 +144,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 		public void onDrawFrame(GL10 gl) {
 			device.setTextureFilter(GraphicDevice.TEXTURE_FILTER.LINEAR);
+			input.update();
 			final long delta = Math.min(System.currentTimeMillis() - lastDrawTime, MAX_DELTA_TIME);
 			lastDrawTime = System.currentTimeMillis();
 			if (app.update(delta) == BaseApplication.STATE.EXIT) {
@@ -152,6 +177,11 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		private AudioPlayer player;
 	}
 
+	@Override
+	public KEY_STATE getTouchState(int t) {
+		return touchState[t];
+	}
+	
 	@Override
 	public Vector2 getLastTouch() {
 		return getLastTouch(0);
