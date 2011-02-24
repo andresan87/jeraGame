@@ -26,13 +26,19 @@ public class AndroidAudioPlayer implements AudioPlayer {
 	@Override
 	public void play(int id) {
 		float streamVolume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
-		streamVolume /= manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)*globalVolume;
+		streamVolume /= manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		streamVolume *= globalVolume;
 		pool.play(samples.get(id), streamVolume, streamVolume, 1, 0, 1.0f);
 	}
 
 	@Override
 	public void setGlobalVolume(float volume) {
 		globalVolume = volume;
+	}
+
+	@Override
+	public float getGlobalVolume() {
+		return globalVolume;
 	}
 
 	private float globalVolume = 1.0f;

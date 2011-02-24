@@ -5,4 +5,5 @@ public interface AudioPlayer {
 	public void load(int id);
 	public void play(int id);
 	public void setGlobalVolume(float volume);
+	public float getGlobalVolume();
 }
