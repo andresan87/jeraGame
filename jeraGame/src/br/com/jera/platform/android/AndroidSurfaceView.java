@@ -30,7 +30,6 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	public AndroidSurfaceView(Activity activity, BaseApplication app) {
 		super(activity);
-		//assert (app != null);
 		renderer = new Renderer(activity, this, new AndroidAudioPlayer(activity), app);
 		setRenderer(renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
