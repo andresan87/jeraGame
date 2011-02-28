@@ -4,7 +4,7 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
+import android.app.Activity;
 import android.opengl.GLU;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.Texture;
@@ -16,7 +16,7 @@ import br.com.jera.util.CommonMath.Vertex;
 
 public class GLESGraphicDevice implements GraphicDevice {
 
-	Context context;
+	Activity activity;
 	Vector4 backgroundColor = new Vector4(0,0,0,1);
 	GL10 glDevice;
 	TEXTURE_FILTER textureFilter;
@@ -28,16 +28,16 @@ public class GLESGraphicDevice implements GraphicDevice {
 	boolean textureWrap;
 	final float ALPHAREF = 0.05f;
 
-	public GLESGraphicDevice(GL10 gl, Context context) {
+	public GLESGraphicDevice(GL10 gl, Activity activity) {
 		glDevice = gl;
-		this.context = context;
+		this.activity = activity;
 		setDepthTest(false);
 		setTextureFilter(TEXTURE_FILTER.LINEAR);
 		setTextureWrap(false);
 	}
 
-	public Context getContext() {
-		return context;
+	public Activity getContext() {
+		return activity;
 	}
 
 	public GL10 getGlDevice() {
@@ -132,7 +132,7 @@ public class GLESGraphicDevice implements GraphicDevice {
 
 	@Override
 	public Texture createStaticTexture(int resourceId) {
-		return new GLESStaticTexture(glDevice, context, resourceId);
+		return new GLESStaticTexture(glDevice, activity, resourceId);
 	}
 
 	@Override
@@ -248,5 +248,16 @@ public class GLESGraphicDevice implements GraphicDevice {
 	@Override
 	public void forceScreenClear() {
 		glDevice.glClear(GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_COLOR_BUFFER_BIT);
+	}
+
+	@Override
+	public void callDialog(final int id) {
+		activity.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				activity.showDialog(id);
+			}
+		});
 	}
 }

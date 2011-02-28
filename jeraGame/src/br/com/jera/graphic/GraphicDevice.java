@@ -54,4 +54,5 @@ public interface GraphicDevice {
 	public boolean getDepthTest();
 	
 	public void forceScreenClear();
+	public void callDialog(int id);
 }
