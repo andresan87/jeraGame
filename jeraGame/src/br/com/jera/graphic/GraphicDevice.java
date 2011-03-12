@@ -55,4 +55,5 @@ public interface GraphicDevice {
 	
 	public void forceScreenClear();
 	public void callDialog(int id, Object data);
+	public void openUrl(final String Url);
 }

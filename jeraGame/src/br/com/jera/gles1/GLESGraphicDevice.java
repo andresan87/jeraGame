@@ -5,6 +5,8 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.opengl.GLU;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.Texture;
@@ -257,6 +259,18 @@ public class GLESGraphicDevice implements GraphicDevice {
 			@Override
 			public void run() {
 				activity.showDialog(id);
+			}
+		});
+	}
+
+	@Override
+	public void openUrl(final String Url) {
+		activity.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(Url));
+				activity.startActivity(intent);
 			}
 		});
 	}
