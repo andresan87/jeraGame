@@ -108,4 +108,8 @@ public class Sprite {
 				new Vector3(new Vector2(1, -1), 1));
 		texture.unbindTexture();
 	}
+
+	public void delete() {
+		texture.delete();
+	}
 }

@@ -7,4 +7,5 @@ public interface Texture {
 	void bindTexture();
 	void unbindTexture();
 	Vector2 getBitmapSize();
+	void delete();
 }

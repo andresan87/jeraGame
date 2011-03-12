@@ -19,7 +19,11 @@ public class SpriteResourceManager {
 	}
 
 	public void loadResource(final int id, final int columns, final int rows) {
-		Sprite sprite = new Sprite(device, id, columns, rows);
+		Sprite sprite;
+		if ((sprite = map.get(id)) != null) {
+			sprite.delete();
+		}
+		sprite = new Sprite(device, id, columns, rows);
 		map.put(new Integer(id), sprite);
 	}
 	

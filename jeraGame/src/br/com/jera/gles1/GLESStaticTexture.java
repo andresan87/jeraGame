@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.IntBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -78,5 +79,10 @@ public class GLESStaticTexture implements Texture {
 
 	public void unbindTexture() {
 		glDevice.glDisable(GL10.GL_TEXTURE_2D);
+	}
+
+	@Override
+	public void delete() {
+		glDevice.glDeleteTextures(1, IntBuffer.wrap(texture));
 	}
 }
