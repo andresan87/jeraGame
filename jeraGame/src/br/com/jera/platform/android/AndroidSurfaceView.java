@@ -27,14 +27,19 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	private Vector2[] previousTouch = new Vector2[MAXIMUM_TOUCHES];
 
 	private Renderer renderer;
+	private static AndroidAudioPlayer audioPlayer;
 
 	public AndroidSurfaceView(Activity activity, BaseApplication app) {
 		super(activity);
-		renderer = new Renderer(activity, this, new AndroidAudioPlayer(activity), app);
+		
+		if (audioPlayer == null)
+			audioPlayer = new AndroidAudioPlayer(activity);
+		
+		renderer = new Renderer(activity, this, audioPlayer, app);
 		setRenderer(renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+		
 		for (int t = 0; t < MAXIMUM_TOUCHES; t++) {
 			touchMove[t] = new Vector2();
 			previousTouch[t] = new Vector2();

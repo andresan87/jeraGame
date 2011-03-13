@@ -41,7 +41,7 @@ public class AndroidAudioPlayer implements AudioPlayer {
 		return globalVolume;
 	}
 
-	private float globalVolume = 1.0f;
+	private static float globalVolume = 1.0f;
 	private Context context;
 	private SoundPool pool;
 	private AudioManager manager;
