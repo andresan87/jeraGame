@@ -1,5 +1,7 @@
 ﻿package br.com.jera.gles1;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -73,20 +75,38 @@ public class GLESVertexArray implements VertexArray {
 			}
 		}
 
-		if (nColors == vertices.length)
-			colorsBuffer = FloatBuffer.wrap(colors);
-		if (nPositions == vertices.length)
-			positionsBuffer = FloatBuffer.wrap(positions);
-		if (nTexCoords == vertices.length)
-			texCoordsBuffer = FloatBuffer.wrap(texCoords);
+		if (nColors == vertices.length) {
+			ByteBuffer vbb = ByteBuffer.allocateDirect(colors.length * 4);
+			vbb.order(ByteOrder.nativeOrder());
+			colorsBuffer = vbb.asFloatBuffer(); 
+			colorsBuffer.put(colors);
+			colorsBuffer.position(0);
+		}
+		if (nPositions == vertices.length) {
+			ByteBuffer vbb = ByteBuffer.allocateDirect(positions.length * 4);
+			vbb.order(ByteOrder.nativeOrder());
+			positionsBuffer = vbb.asFloatBuffer(); 
+			positionsBuffer.put(positions);
+			positionsBuffer.position(0);
+		}
+		if (nTexCoords == vertices.length) {
+			ByteBuffer vbb = ByteBuffer.allocateDirect(texCoords.length * 4);
+			vbb.order(ByteOrder.nativeOrder());
+			texCoordsBuffer = vbb.asFloatBuffer(); 
+			texCoordsBuffer.put(texCoords);
+			texCoordsBuffer.position(0);
+		}
 
 		numVertices = vertices.length;
 	}
 
 	@Override
 	public void setVertices(float[] vertices) {
-		assert (vertices.length / 3 == numVertices);
-		positionsBuffer = FloatBuffer.wrap(vertices);
+		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
+		vbb.order(ByteOrder.nativeOrder());
+		positionsBuffer = vbb.asFloatBuffer(); 
+		positionsBuffer.put(vertices);
+		positionsBuffer.position(0);
 	}
 
 	@Override
@@ -100,7 +120,11 @@ public class GLESVertexArray implements VertexArray {
 			vertices[v + 2] = color.z;
 			vertices[v + 3] = color.w;
 		}
-		colorsBuffer = FloatBuffer.wrap(vertices);
+		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
+		vbb.order(ByteOrder.nativeOrder());
+		colorsBuffer = vbb.asFloatBuffer(); 
+		colorsBuffer.put(vertices);
+		colorsBuffer.position(0);
 	}
 
 	@Override
@@ -125,12 +149,18 @@ public class GLESVertexArray implements VertexArray {
 		if (texCoordsBuffer != null)
 			glDevice.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
 
-		if (positionsBuffer != null)
+		if (positionsBuffer != null) {
+			positionsBuffer.position(0);
 			glDevice.glVertexPointer(3, GL10.GL_FLOAT, 0, positionsBuffer);
-		if (colorsBuffer != null)
+		}
+		if (colorsBuffer != null) {
+			colorsBuffer.position(0);
 			glDevice.glColorPointer(4, GL10.GL_FLOAT, 0, colorsBuffer);
-		if (texCoordsBuffer != null)
+		}
+		if (texCoordsBuffer != null) {
+			texCoordsBuffer.position(0);
 			glDevice.glTexCoordPointer(2, GL10.GL_FLOAT, 0, texCoordsBuffer);
+		}
 
 		glDevice.glDrawArrays(getGLPrimitiveType(primitiveType), 0, vertexCount);
 

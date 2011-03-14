@@ -16,7 +16,7 @@ import br.com.jera.util.CommonMath.Vector2;
 
 public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
-	private static final int MAXIMUM_TOUCHES = 5;
+	private static final int MAXIMUM_TOUCHES = 1;
 	private int touchCount;
 
 	private int[] touchStepCount = new int[MAXIMUM_TOUCHES];
@@ -88,10 +88,11 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	@Override
 	public boolean onTouchEvent(final MotionEvent event) {
 
-		touchCount = Math.min(MAXIMUM_TOUCHES, event.getPointerCount());
+		// mudado para encaixar-se ao 1.6 SDK 
+		touchCount = 1; //Math.min(MAXIMUM_TOUCHES, event.getPointerCount());
 		for (int t = 0; t < touchCount; t++) {
-			final float x = event.getX(t);
-			final float y = event.getY(t);
+			final float x = event.getX(); // MULTITOUCH OFF
+			final float y = event.getY(); // MULTITOUCH OFF
 			resetTouchMove(t);
 			switch (event.getAction()) {
 			case MotionEvent.ACTION_DOWN:

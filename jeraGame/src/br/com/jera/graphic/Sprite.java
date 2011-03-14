@@ -14,7 +14,16 @@ public class Sprite {
 	public static final Vector2 zero = new Vector2(0.0f, 0.0f);
 	public static final Vector2 centerOrigin = new Vector2(0.5f, 0.5f);
 	public static final Vector2 defaultOrigin = new Vector2(0.0f, 0.0f);
-
+	
+	private static float globalSpriteScale = 1.0f;
+	
+	public static void setGlobalSpriteScale(float scale) {
+		globalSpriteScale = scale;
+	}
+	public static float getGlobalSpriteScale() {
+		return globalSpriteScale;
+	}
+	
 	int rows, columns;
 	VertexArray[] vertexArrays;
 	private Texture texture;
@@ -29,7 +38,7 @@ public class Sprite {
 
 		GridCutter cutter = new GridCutter(columns, rows);
 		Rectangle2D[] rects = cutter.rects;
-		frameSize = rects[0].size.multiply(texture.getBitmapSize());
+		frameSize = rects[0].size.multiply(texture.getBitmapSize().multiply(globalSpriteScale));
 
 		vertexArrays = new VertexArray[rects.length];
 		for (int t = 0; t < rects.length; t++) {
@@ -54,7 +63,7 @@ public class Sprite {
 	}
 
 	public Vector2 getBitmapSize() {
-		return texture.getBitmapSize();
+		return texture.getBitmapSize().multiply(globalSpriteScale);
 	}
 
 	public Vector2 getFrameSize() {
