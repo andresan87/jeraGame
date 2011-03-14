@@ -20,7 +20,9 @@ public class AndroidAudioPlayer implements AudioPlayer {
 
 	@Override
 	public void load(int id) {
-		samples.put(id, pool.load(context, id, 1));
+		if (samples.get(new Integer(id)) == null) {
+			samples.put(id, pool.load(context, id, 1));
+		}
 	}
 
 	@Override
