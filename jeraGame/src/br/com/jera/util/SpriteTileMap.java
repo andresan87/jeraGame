@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ListIterator;
 
+import br.com.jera.audio.AudioPlayer;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
@@ -129,7 +130,7 @@ public class SpriteTileMap implements DisplayableEntity {
 	}
 
 	@Override
-	public void update(long lastFrameDeltaTimeMS) {
+	public void update(long lastFrameDeltaTimeMS, AudioPlayer audioPlayer) {
 		// dummy
 	}
 

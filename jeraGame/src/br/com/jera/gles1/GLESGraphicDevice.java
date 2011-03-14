@@ -253,7 +253,7 @@ public class GLESGraphicDevice implements GraphicDevice {
 	}
 
 	@Override
-	public void callDialog(final int id, Object data) {
+	public void callDialog(final int id) {
 		activity.runOnUiThread(new Runnable() {
 
 			@Override

@@ -27,15 +27,11 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	private Vector2[] previousTouch = new Vector2[MAXIMUM_TOUCHES];
 
 	private Renderer renderer;
-	private static AndroidAudioPlayer audioPlayer;
 
 	public AndroidSurfaceView(Activity activity, BaseApplication app) {
 		super(activity);
-		
-		if (audioPlayer == null)
-			audioPlayer = new AndroidAudioPlayer(activity);
-		
-		renderer = new Renderer(activity, this, audioPlayer, app);
+
+		renderer = new Renderer(activity, this, new AndroidAudioPlayer(activity), app);
 		setRenderer(renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -138,7 +134,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		}		
 	}
 
-	public static class Renderer implements android.opengl.GLSurfaceView.Renderer {
+	public class Renderer implements android.opengl.GLSurfaceView.Renderer {
 
 		public Renderer(Activity activity, InputListener input, AudioPlayer player, BaseApplication app) {
 			this.app = app;

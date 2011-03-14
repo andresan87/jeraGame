@@ -108,7 +108,7 @@ public class Sprite {
 		}
 
 		Vector2 originOffset = CommonMath.computeSpriteOriginOffset(size, normalizedOrigin);
-		// originOffset = originOffset.add(new Vector2(0.375f,0.375f));
+
 		originOffset = originOffset.add(new Vector2(0.0f, 0.0f));
 		float[] vertices = { originOffset.x, originOffset.y, 0, size.x + originOffset.x, originOffset.y, 0, size.x + originOffset.x,
 				size.y + originOffset.y, 0, originOffset.x, size.y + originOffset.y, 0 };
