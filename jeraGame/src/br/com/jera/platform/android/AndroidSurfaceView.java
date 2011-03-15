@@ -102,12 +102,9 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 				break;
 
 			case MotionEvent.ACTION_MOVE:
-				touchMove[t] = new Vector2(x - previousTouch[t].x, y - previousTouch[t].y);
 				currentTouch[t] = new Vector2(x, y);
 				break;
 			}
-			previousTouch[t].x = x;
-			previousTouch[t].y = y;
 		}
 		return true;
 	}
@@ -119,9 +116,17 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 			if (currentTouchRef != null) {
 				touchStepCount[t]++;
 				if (touchStepCount[t] == 1) {
+					previousTouch[t].x = currentTouchRef.x;
+					previousTouch[t].y = currentTouchRef.y;
 					touchState[t] = KEY_STATE.HIT;
 				} else {
 					touchState[t] = KEY_STATE.DOWN;
+				}
+
+				if (touchState[t] == KEY_STATE.DOWN) {
+					touchMove[t] = new Vector2(currentTouchRef.x - previousTouch[t].x, currentTouchRef.y - previousTouch[t].y);
+					previousTouch[t].x = currentTouchRef.x;
+					previousTouch[t].y = currentTouchRef.y;
 				}
 			} else {
 				if (touchStepCount[t] != 0) {
@@ -131,7 +136,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 				}
 				touchStepCount[t] = 0;
 			}
-		}		
+		}
 	}
 
 	public class Renderer implements android.opengl.GLSurfaceView.Renderer {
