@@ -13,7 +13,7 @@ public class SpriteResourceManager {
 	public SpriteResourceManager(GraphicDevice device) {
 		this.device = device;
 	}
-	
+
 	public GraphicDevice getGraphicDevice() {
 		return device;
 	}
@@ -24,7 +24,7 @@ public class SpriteResourceManager {
 			map.put(new Integer(id), sprite);
 		}
 	}
-	
+
 	public Sprite getSprite(final int id) {
 		return map.get(new Integer(id));
 	}
