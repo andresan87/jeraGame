@@ -42,10 +42,11 @@ public class Sprite {
 
 		vertexArrays = new VertexArray[rects.length];
 		for (int t = 0; t < rects.length; t++) {
-			Vertex[] vertices = { new Vertex(new Vector3(0, 0, 0), new Vector2(rects[t].pos.x, rects[t].pos.y)),
-					new Vertex(new Vector3(1, 0, 0), new Vector2(rects[t].pos.x + rects[t].size.x, rects[t].pos.y)),
-					new Vertex(new Vector3(1, 1, 0), new Vector2(rects[t].pos.x + rects[t].size.x, rects[t].pos.y + rects[t].size.y)),
-					new Vertex(new Vector3(0, 1, 0), new Vector2(rects[t].pos.x, rects[t].pos.y + rects[t].size.y)) };
+			Vertex[] vertices = {
+					new Vertex(new Vector3(0,           0,              0), new Vector2(rects[t].pos.x, rects[t].pos.y)),
+					new Vertex(new Vector3(frameSize.x, 0,              0), new Vector2(rects[t].pos.x + rects[t].size.x, rects[t].pos.y)),
+					new Vertex(new Vector3(frameSize.x, frameSize.y,    0), new Vector2(rects[t].pos.x + rects[t].size.x, rects[t].pos.y + rects[t].size.y)),
+					new Vertex(new Vector3(0,           frameSize.y,    0), new Vector2(rects[t].pos.x, rects[t].pos.y + rects[t].size.y)) };
 			vertexArrays[t] = graphicDevice.createVertexArray(vertices, PRIMITIVE_TYPE.TRIANGLE_FAN);
 		}
 	}
@@ -98,8 +99,6 @@ public class Sprite {
 	}
 
 	public void draw(Vector2 pos, Vector2 size, float angle, Vector2 normalizedOrigin, int frame, boolean roundUpPosition) {
-		assert (frame < getNumFrames() && frame >= 0);
-
 		texture.bindTexture();
 
 		if (roundUpPosition) {
@@ -108,14 +107,22 @@ public class Sprite {
 		}
 
 		Vector2 originOffset = CommonMath.computeSpriteOriginOffset(size, normalizedOrigin);
+		Vector2 halfScreenSize = graphicDevice.getScreenSize().multiply(-0.5f);
+		if (angle == 0) {
+			Vector2 scaleFactor = size.multiply(new Vector2(1/frameSize.x,-1/frameSize.y));
+			Vector2 rcpScaleFactor = new Vector2(1/scaleFactor.x,-1/scaleFactor.y);
 
-		originOffset = originOffset.add(new Vector2(0.0f, 0.0f));
-		float[] vertices = { originOffset.x, originOffset.y, 0, size.x + originOffset.x, originOffset.y, 0, size.x + originOffset.x,
-				size.y + originOffset.y, 0, originOffset.x, size.y + originOffset.y, 0 };
-		vertexArrays[frame].setVertices(vertices);
-		vertexArrays[frame].drawGeometry(new Vector3(pos.add(graphicDevice.getScreenSize().multiply(-0.5f)), 0), new Vector3(0, 0, angle),
-				new Vector3(new Vector2(1, -1), 1));
-		texture.unbindTexture();
+			vertexArrays[frame].drawGeometry(new Vector3(pos.add(halfScreenSize).add(originOffset).multiply(rcpScaleFactor), 0), new Vector3(0, 0, angle),
+					new Vector3(scaleFactor, 1));
+			texture.unbindTexture();
+		} else {
+			float[] vertices = { originOffset.x, originOffset.y, 0, size.x + originOffset.x, originOffset.y, 0, size.x + originOffset.x,
+					size.y + originOffset.y, 0, originOffset.x, size.y + originOffset.y, 0 };
+			vertexArrays[frame].setVertices(vertices);
+			vertexArrays[frame].drawGeometry(new Vector3(pos.add(halfScreenSize), 0), new Vector3(0, 0, angle),
+					new Vector3(1,-1, 1));
+		}
+
 	}
 
 	public void delete() {
