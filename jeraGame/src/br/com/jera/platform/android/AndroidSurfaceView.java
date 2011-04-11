@@ -35,7 +35,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		setRenderer(renderer);
 		setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);
 		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		
+
 		for (int t = 0; t < MAXIMUM_TOUCHES; t++) {
 			touchMove[t] = new Vector2();
 			previousTouch[t] = new Vector2();
@@ -51,7 +51,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	}
 
 	public Vector2 getLastTouch(final int t) {
-		Vector2 lastTouchRef = lastTouch[t]; 
+		Vector2 lastTouchRef = lastTouch[t];
 		if (lastTouchRef != null)
 			return new Vector2(lastTouchRef);
 		else
@@ -74,7 +74,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 
 	@Override
 	public Vector2 getCurrentTouch(final int t) {
-		Vector2 currentTouchRef = currentTouch[t]; 
+		Vector2 currentTouchRef = currentTouch[t];
 		if (currentTouchRef != null)
 			return new Vector2(currentTouchRef);
 		else
@@ -84,8 +84,8 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	@Override
 	public boolean onTouchEvent(final MotionEvent event) {
 
-		// mudado para encaixar-se ao 1.6 SDK 
-		touchCount = 1; //Math.min(MAXIMUM_TOUCHES, event.getPointerCount());
+		// mudado para encaixar-se ao 1.6 SDK
+		touchCount = 1; // Math.min(MAXIMUM_TOUCHES, event.getPointerCount());
 		for (int t = 0; t < touchCount; t++) {
 			final float x = event.getX(); // MULTITOUCH OFF
 			final float y = event.getY(); // MULTITOUCH OFF
@@ -168,6 +168,8 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 			app.create(device, input, player);
 			app.loadResources();
 			lastDrawTime = System.currentTimeMillis();
+			gl.glDisable(GL10.GL_DITHER);
+			gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_FASTEST);
 		}
 
 		public void setApp(BaseApplication app) {
@@ -187,7 +189,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	public KEY_STATE getTouchState(int t) {
 		return touchState[t];
 	}
-	
+
 	@Override
 	public Vector2 getLastTouch() {
 		return getLastTouch(0);
@@ -213,8 +215,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		for (int t = 0; t < touchCount; t++) {
 			final Vector2 current = currentTouch[t];
 			if (current != null) {
-				if (!(current.x < pos.x || current.y < pos.y
-					||current.x > pos.x+area.x || current.y > pos.y+area.y)) {
+				if (!(current.x < pos.x || current.y < pos.y || current.x > pos.x + area.x || current.y > pos.y + area.y)) {
 					return true;
 				}
 			}
@@ -227,8 +228,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		for (int t = 0; t < touchCount; t++) {
 			final Vector2 last = lastTouch[t];
 			if (last != null) {
-				if (!(last.x < pos.x || last.y < pos.y
-					||last.x > pos.x+area.x || last.y > pos.y+area.y)) {
+				if (!(last.x < pos.x || last.y < pos.y || last.x > pos.x + area.x || last.y > pos.y + area.y)) {
 					return true;
 				}
 			}
