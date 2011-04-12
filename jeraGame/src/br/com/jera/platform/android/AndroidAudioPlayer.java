@@ -18,14 +18,12 @@ public class AndroidAudioPlayer implements AudioPlayer {
 		this.manager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
 	}
 
-	@Override
 	public void load(int id) {
 		if (samples.get(new Integer(id)) == null) {
 			samples.put(id, pool.load(context, id, 1));
 		}
 	}
 
-	@Override
 	public void play(int id) {
 		float streamVolume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
 		streamVolume /= manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
@@ -33,12 +31,10 @@ public class AndroidAudioPlayer implements AudioPlayer {
 		pool.play(samples.get(id), streamVolume, streamVolume, 1, 0, 1.0f);
 	}
 
-	@Override
 	public void setGlobalVolume(float volume) {
 		globalVolume = volume;
 	}
 
-	@Override
 	public float getGlobalVolume() {
 		return globalVolume;
 	}

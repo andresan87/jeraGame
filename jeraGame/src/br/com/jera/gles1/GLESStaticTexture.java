@@ -81,7 +81,6 @@ public class GLESStaticTexture implements Texture {
 		glDevice.glDisable(GL10.GL_TEXTURE_2D);
 	}
 
-	@Override
 	public void delete() {
 		glDevice.glDeleteTextures(1, IntBuffer.wrap(texture));
 	}

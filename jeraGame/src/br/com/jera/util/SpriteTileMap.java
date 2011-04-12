@@ -19,7 +19,6 @@ public class SpriteTileMap implements DisplayableEntity {
 			this.size = size;
 		}
 
-		@Override
 		public int compareTo(Tile another) {
 			return tile - another.tile;
 		}
@@ -36,7 +35,6 @@ public class SpriteTileMap implements DisplayableEntity {
 		return new Vector2(origin);
 	}
 
-	@Override
 	public Vector3 getPos() {
 		return new Vector3(origin, 0);
 	}
@@ -102,7 +100,6 @@ public class SpriteTileMap implements DisplayableEntity {
 		origin = pos;
 	}
 
-	@Override
 	public void draw(SceneViewer viewer, SpriteResourceManager res) {
 		ListIterator<Tile> iter = tileMap.tiles.listIterator();
 		Sprite sprite = res.getSprite(tileSetId);
@@ -117,29 +114,24 @@ public class SpriteTileMap implements DisplayableEntity {
 	private Vector2 origin = new Vector2();
 	private TileMap tileMap;
 
-	@Override
 	public Vector2 getMin(SpriteResourceManager res) {
 		return new Vector2(origin);
 	}
 
-	@Override
 	public Vector2 getMax(SpriteResourceManager res) {
 		Sprite sprite = res.getSprite(tileSetId);
 		return new Vector2(getMin(res).add(
 				new Vector2((float) tileMap.getWidth() * sprite.getFrameSize().x, (float) tileMap.getHeight() * sprite.getFrameSize().y)));
 	}
 
-	@Override
 	public void update(long lastFrameDeltaTimeMS, AudioPlayer audioPlayer) {
 		// dummy
 	}
 
-	@Override
 	public int compareTo(DisplayableEntity another) {
 		return 0;
 	}
 
-	@Override
 	public boolean isVisible(SceneViewer viewer, Rectangle2D clientRect) {
 		return true;
 	}

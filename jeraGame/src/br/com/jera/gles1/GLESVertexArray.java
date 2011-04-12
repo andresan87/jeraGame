@@ -100,7 +100,6 @@ public class GLESVertexArray implements VertexArray {
 		numVertices = vertices.length;
 	}
 
-	@Override
 	public void setVertices(float[] vertices) {
 		ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
 		vbb.order(ByteOrder.nativeOrder());
@@ -109,7 +108,6 @@ public class GLESVertexArray implements VertexArray {
 		positionsBuffer.position(0);
 	}
 
-	@Override
 	public void setColor(Vector4 color) {
 		final int stride = 4;
 		final int numFloats = stride * numVertices;
@@ -127,7 +125,6 @@ public class GLESVertexArray implements VertexArray {
 		colorsBuffer.position(0);
 	}
 
-	@Override
 	public void drawGeometry(Vector3 pos, Vector3 rot, Vector3 scale) {
 
 		glDevice.glMatrixMode(GL10.GL_MODELVIEW);
@@ -185,7 +182,6 @@ public class GLESVertexArray implements VertexArray {
 		}
 	}
 
-	@Override
 	public int getNumVertices() {
 		return numVertices;
 	}

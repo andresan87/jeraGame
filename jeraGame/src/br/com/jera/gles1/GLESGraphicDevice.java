@@ -66,7 +66,6 @@ public class GLESGraphicDevice implements GraphicDevice {
 		setCullingMode(CULLING_MODE.CULL_CCW);
 	}
 
-	@Override
 	public void setup2DView(int width, int height) {
 		screenWidth = width;
 		screenHeight = height;
@@ -122,22 +121,18 @@ public class GLESGraphicDevice implements GraphicDevice {
 		cullingMode = mode;
 	}
 
-	@Override
 	public CULLING_MODE getCullingMode() {
 		return cullingMode;
 	}
 
-	@Override
 	public VertexArray createVertexArray(Vertex[] vertices, PRIMITIVE_TYPE type) {
 		return new GLESVertexArray(glDevice, vertices, type);
 	}
 
-	@Override
 	public Texture createStaticTexture(int resourceId) {
 		return new GLESStaticTexture(glDevice, activity, resourceId);
 	}
 
-	@Override
 	public void setTextureFilter(TEXTURE_FILTER filter) {
 		switch (filter) {
 		case LINEAR:
@@ -153,12 +148,10 @@ public class GLESGraphicDevice implements GraphicDevice {
 		textureFilter = filter;
 	}
 	
-	@Override
 	public TEXTURE_FILTER getTextureFilter() {
 		return textureFilter;
 	}
 
-	@Override
 	public void setDepthTest(boolean enable) {
 		if (enable) {
 			glDevice.glEnable(GL10.GL_DEPTH_TEST);
@@ -169,27 +162,22 @@ public class GLESGraphicDevice implements GraphicDevice {
 		depthTestEnabled = enable;
 	}
 
-	@Override
 	public boolean getDepthTest() {
 		return depthTestEnabled;
 	}
 
-	@Override
 	public void setup3DView() {
 		setup3DView(screenWidth, screenHeight);
 	}
 
-	@Override
 	public void setup2DView() {
 		setup2DView(screenWidth, screenHeight);
 	}
 
-	@Override
 	public Vector2 getScreenSize() {
 		return new Vector2((float)screenWidth, (float)screenHeight);
 	}
 
-	@Override
 	public void setTextureWrap(boolean enable) {
 		textureWrap = enable;
 		if (enable) {
@@ -201,12 +189,10 @@ public class GLESGraphicDevice implements GraphicDevice {
 		}
 	}
 
-	@Override
 	public boolean getTextureWrap() {
 		return textureWrap;
 	}
 
-	@Override
 	public void setAlphaMode(ALPHA_MODE mode) {
 		switch(mode)
 		{
@@ -242,32 +228,26 @@ public class GLESGraphicDevice implements GraphicDevice {
 		alphaMode = mode;
 	}
 
-	@Override
 	public ALPHA_MODE getAlphaMode() {
 		return alphaMode;
 	}
 
-	@Override
 	public void forceScreenClear() {
 		glDevice.glClear(GL10.GL_DEPTH_BUFFER_BIT | GL10.GL_COLOR_BUFFER_BIT);
 	}
 
-	@Override
 	public void callDialog(final int id) {
 		activity.runOnUiThread(new Runnable() {
 
-			@Override
 			public void run() {
 				activity.showDialog(id);
 			}
 		});
 	}
 
-	@Override
 	public void openUrl(final String Url) {
 		activity.runOnUiThread(new Runnable() {
 
-			@Override
 			public void run() {
 				Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(Url));
 				activity.startActivity(intent);

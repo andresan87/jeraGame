@@ -63,7 +63,6 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		touchMove[t].y = 0;
 	}
 
-	@Override
 	public Vector2 getTouchMove(final int t) {
 		Vector2 touchMoveRef = touchMove[t];
 		if (touchMoveRef != null)
@@ -72,7 +71,6 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 			return null;
 	}
 
-	@Override
 	public Vector2 getCurrentTouch(final int t) {
 		Vector2 currentTouchRef = currentTouch[t];
 		if (currentTouchRef != null)
@@ -109,7 +107,6 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		return true;
 	}
 
-	@Override
 	public void update() {
 		for (int t = 0; t < MAXIMUM_TOUCHES; t++) {
 			Vector2 currentTouchRef = currentTouch[t];
@@ -185,32 +182,26 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		private AudioPlayer player;
 	}
 
-	@Override
 	public KEY_STATE getTouchState(int t) {
 		return touchState[t];
 	}
 
-	@Override
 	public Vector2 getLastTouch() {
 		return getLastTouch(0);
 	}
 
-	@Override
 	public Vector2 getCurrentTouch() {
 		return getCurrentTouch(0);
 	}
 
-	@Override
 	public Vector2 getTouchMove() {
 		return getTouchMove(0);
 	}
 
-	@Override
 	public int getTouchCount() {
 		return touchCount;
 	}
 
-	@Override
 	public boolean hasTouchOn(final Vector2 pos, final Vector2 area) {
 		for (int t = 0; t < touchCount; t++) {
 			final Vector2 current = currentTouch[t];
@@ -223,7 +214,6 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		return false;
 	}
 
-	@Override
 	public boolean isLastTouchOn(final Vector2 pos, final Vector2 area) {
 		for (int t = 0; t < touchCount; t++) {
 			final Vector2 last = lastTouch[t];

@@ -19,12 +19,10 @@ public class Classic2DViewer implements SceneViewer {
 		scrollTo(getOrthogonalViewerPos().add(scroll));
 	}
 
-	@Override
 	public Vector2 getOrthogonalViewerPos() {
 		return new Vector2(scrollOrigin);
 	}
 
-	@Override
 	public Vector3 getEuclideanViewerPos() {
 		return new Vector3(new Vector2(scrollOrigin), 0);
 	}
