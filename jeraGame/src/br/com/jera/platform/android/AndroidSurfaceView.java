@@ -27,9 +27,11 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 	private Vector2[] previousTouch = new Vector2[MAXIMUM_TOUCHES];
 
 	private Renderer renderer;
+	private static JGRunnable runnable;
 
-	public AndroidSurfaceView(Activity activity, BaseApplication app) {
+	public AndroidSurfaceView(Activity activity, BaseApplication app, JGRunnable runnable) {
 		super(activity);
+		AndroidSurfaceView.runnable  = runnable;
 
 		renderer = new Renderer(activity, this, new AndroidAudioPlayer(activity), app);
 		setRenderer(renderer);
@@ -150,10 +152,15 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 			input.update();
 			final long delta = Math.min(System.currentTimeMillis() - lastDrawTime, MAX_DELTA_TIME);
 			lastDrawTime = System.currentTimeMillis();
+
 			if (app.update(delta) == BaseApplication.STATE.EXIT) {
 				activity.finish();
 			}
 			app.draw();
+
+			if (AndroidSurfaceView.runnable != null) {
+				AndroidSurfaceView.runnable.run(app.getStateName(), activity);
+			}
 		}
 
 		public void onSurfaceChanged(GL10 gl, int width, int height) {
