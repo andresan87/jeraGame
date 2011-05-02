@@ -159,7 +159,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 			app.draw();
 
 			if (AndroidSurfaceView.runnable != null) {
-				AndroidSurfaceView.runnable.run(app.getStateName(), activity);
+				AndroidSurfaceView.runnable.run(app.getStateName(), activity, player);
 			}
 		}
 
