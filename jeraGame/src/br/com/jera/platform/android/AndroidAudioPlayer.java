@@ -10,7 +10,7 @@ import br.com.jera.audio.AudioPlayer;
 
 public class AndroidAudioPlayer implements AudioPlayer {
 
-	private static final int MAXIMUM_SIMULTANEOUS_SFX = 4;
+	private static final int MAXIMUM_SIMULTANEOUS_SFX = 8;
 
 	public AndroidAudioPlayer(Activity activity) {
 		this.context = activity;

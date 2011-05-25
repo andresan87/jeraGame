@@ -38,7 +38,7 @@ public class SpriteTileMap implements DisplayableEntity {
 	public Vector3 getPos() {
 		return new Vector3(origin, 0);
 	}
-
+	
 	public static class TileMap {
 		public TileMap(final int width, final int height, final int[] tileIndices, final Vector2 tileSize) {
 			final int numTiles = width * height;
@@ -58,6 +58,11 @@ public class SpriteTileMap implements DisplayableEntity {
 				}
 			}
 			Collections.sort(tiles);
+		}
+
+		public Vector2 getTilePos(int t) {
+			Tile tile = tiles.get(t);
+			return tile.pos.add(tile.size.multiply(0.5f));
 		}
 
 		public int getWidth() {
@@ -87,6 +92,10 @@ public class SpriteTileMap implements DisplayableEntity {
 		public ArrayList<Tile> tiles;
 	}
 
+	public Vector2 getTilePos(int t) {
+		return tileMap.getTilePos(t);
+	}
+	
 	public boolean isPointOnRoad(Vector2 p) {
 		return tileMap.isPointOnRoad(p);
 	}
