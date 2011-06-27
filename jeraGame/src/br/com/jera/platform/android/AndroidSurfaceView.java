@@ -185,7 +185,7 @@ public class AndroidSurfaceView extends GLSurfaceView implements InputListener {
 		private BaseApplication app;
 		private InputListener input;
 		private long lastDrawTime;
-		private final long MAX_DELTA_TIME = 1000;
+		private long MAX_DELTA_TIME = 1000;
 		private AudioPlayer player;
 	}
 

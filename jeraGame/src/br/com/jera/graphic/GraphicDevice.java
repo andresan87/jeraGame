@@ -56,4 +56,6 @@ public interface GraphicDevice {
 	public void forceScreenClear();
 	public void callDialog(int id);
 	public void openUrl(final String Url);
+	
+	public Object getContext();
 }

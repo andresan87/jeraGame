@@ -6,13 +6,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
 import br.com.jera.audio.AudioPlayer;
 
 public class AndroidAudioPlayer implements AudioPlayer {
 
-	private static final int MAXIMUM_SIMULTANEOUS_SFX = 8;
+	private static int MAXIMUM_SIMULTANEOUS_SFX = 8;
 
 	public AndroidAudioPlayer(Activity activity) {
+		if (Build.DEVICE.equals("olympus")) {
+			MAXIMUM_SIMULTANEOUS_SFX = 1;
+		}
 		this.context = activity;
 		this.pool = new SoundPool(MAXIMUM_SIMULTANEOUS_SFX, AudioManager.STREAM_MUSIC, 0);
 		this.manager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
@@ -22,15 +26,21 @@ public class AndroidAudioPlayer implements AudioPlayer {
 		if (samples.get(new Integer(id)) == null) {
 			samples.put(id, pool.load(context, id, 1));
 		}
-	}
+	}                                
 
 	public int play(int id) {
-		float streamVolume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
-		streamVolume /= manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		streamVolume *= globalVolume;
-		return pool.play(samples.get(id), streamVolume, streamVolume, 1, 0, 1.0f);
+		if (!Build.DEVICE.equals("GT-S5830B")) {
+			float streamVolume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
+			streamVolume /= manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+			streamVolume *= globalVolume;
+			if (streamVolume > 0) {
+				return pool.play(samples.get(id), streamVolume, streamVolume, 1, 0, 1.0f);
+			}
+		}
+		return -1;
+
 	}
-	
+
 	public void stop(int streamId) {
 		pool.pause(streamId);
 	}
