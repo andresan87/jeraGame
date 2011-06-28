@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import br.com.jera.platform.android.Version;
 
 import com.tapjoy.TapjoyConnect;
 import com.tapjoy.VGStoreItem;
@@ -14,11 +15,21 @@ public class VirtualGoods {
 	private static String APP_ID = "f9ee3e4d-4e4a-455b-a7d1-7be17fae38ba";
 	private static String APP_SECRET_KEY = "3rT18eY8JBrSBHwDKmvF";
 
+	public static List<Integer> listMaps = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5));
+	public static List<Integer> listTowers = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3));
+	public static List<Integer> listSpeeds = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4));
+	
 	public static List<Integer> purchasedMaps = new ArrayList<Integer>(Arrays.asList(1));
 	public static List<Integer> purchasedTowers = new ArrayList<Integer>(Arrays.asList(0, 1, 2));
 	public static List<Integer> purchasedSpeeds = new ArrayList<Integer>(Arrays.asList(0, 1));
 
 	public void connect(Activity activity) {
+		if (Version.NO_ADS) {
+			purchasedMaps = listMaps;
+			purchasedTowers = listTowers;
+			purchasedSpeeds = listSpeeds;
+			return;
+		}
 		TapjoyConnect.requestTapjoyConnect(activity.getApplicationContext(), APP_ID, APP_SECRET_KEY);
 		TapjoyConnect.getTapjoyConnectInstance().checkForVirtualGoods(null);
 		populateMaps();
