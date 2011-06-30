@@ -247,9 +247,8 @@ public class GLESGraphicDevice implements GraphicDevice {
 
 	public void openUrl(final String Url) {
 		activity.runOnUiThread(new Runnable() {
-
 			public void run() {
-				Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(Url));
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Url));
 				activity.startActivity(intent);
 			}
 		});

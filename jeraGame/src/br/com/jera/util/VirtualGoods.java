@@ -5,10 +5,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
-import br.com.jera.platform.android.Version;
 
 import com.tapjoy.TapjoyConnect;
 import com.tapjoy.VGStoreItem;
+
 
 public class VirtualGoods {
 
@@ -24,7 +24,7 @@ public class VirtualGoods {
 	public static List<Integer> purchasedSpeeds = new ArrayList<Integer>(Arrays.asList(0, 1));
 
 	public void connect(Activity activity) {
-		if (Version.NO_ADS) {
+		if (Preferences.PAID) {
 			purchasedMaps = listMaps;
 			purchasedTowers = listTowers;
 			purchasedSpeeds = listSpeeds;
