@@ -13,8 +13,8 @@ import com.tapjoy.VGStoreItem;
 
 public class VirtualGoods {
 
-	private static String APP_ID = "f9ee3e4d-4e4a-455b-a7d1-7be17fae38ba";
-	private static String APP_SECRET_KEY = "3rT18eY8JBrSBHwDKmvF";
+	public static final String APP_ID = "f9ee3e4d-4e4a-455b-a7d1-7be17fae38ba";
+	public static final String APP_SECRET_KEY = "3rT18eY8JBrSBHwDKmvF";
 
 	public static List<Integer> listMaps = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5));
 	public static List<Integer> listTowers = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3));
