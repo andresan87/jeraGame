@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import br.com.jera.androidutil.Preferences;
 
 import com.tapjoy.TapjoyConnect;
 import com.tapjoy.VGStoreItem;

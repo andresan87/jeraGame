@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="remind_later">Lembre-me depois</string>
+    <string name="no_thanks">Não, obrigado!</string>
+	<string name="rate_it_msg">Se você gostou do %s, avalie com 5 estrelas. Obrigado pelo apoio!</string>
+	<string name="rate">Avalie %s</string>
+</resources>

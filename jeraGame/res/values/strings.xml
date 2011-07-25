@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World!</string>
+	<string name="remind_later">Remind me later</string>
+	<string name="no_thanks">No, thanks!</string>
+	<string name="rate_it_msg">If you enjoy %s please rate it 5 stars. Thanks for your support!</string>
+	<string name="rate">Rate %s</string>
 </resources>

@@ -4,6 +4,5 @@
       android:versionCode="1"
       android:versionName="1.0">
 
-    <application android:icon="@drawable/icon" android:debuggable="true">
-    </application>
+    <application android:icon="@drawable/icon" android:debuggable="true"></application>
 </manifest>
