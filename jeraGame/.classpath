@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="/TowerDefenseLib/lib/FlurryAgent.jar"/>
 	<classpathentry kind="lib" path="/TowerDefenseLib/lib/jeraMobStats.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/AndroidUtil"/>
-	<classpathentry kind="src" path="TapjoyConnect_src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TapjoyConnect"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
