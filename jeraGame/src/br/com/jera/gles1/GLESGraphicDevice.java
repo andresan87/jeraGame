@@ -175,7 +175,11 @@ public class GLESGraphicDevice implements GraphicDevice {
 	}
 
 	public Vector2 getScreenSize() {
-		return new Vector2((float)screenWidth, (float)screenHeight);
+		if (screenWidth == 0) {
+			return new Vector2((float)activity.getWindowManager().getDefaultDisplay().getWidth(), (float)activity.getWindowManager().getDefaultDisplay().getHeight());
+		} else {
+			return new Vector2((float)screenWidth, (float)screenHeight);
+		}
 	}
 
 	public void setTextureWrap(boolean enable) {
