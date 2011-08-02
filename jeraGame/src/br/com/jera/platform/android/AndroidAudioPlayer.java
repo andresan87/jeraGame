@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
+import android.util.Log;
 import br.com.jera.audio.AudioPlayer;
 
 public class AndroidAudioPlayer implements AudioPlayer {
@@ -25,12 +27,15 @@ public class AndroidAudioPlayer implements AudioPlayer {
 	}
 
 	public int play(int id) {
-		float streamVolume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
-		streamVolume /= manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		streamVolume *= globalVolume;
-		return pool.play(samples.get(id), streamVolume, streamVolume, 1, 0, 1.0f);
+		if (!Build.DEVICE.equals("GT-S5830B") && !Build.DEVICE.equals("GT-I9100")) {
+			float streamVolume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
+			streamVolume /= manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+			streamVolume *= globalVolume;
+			return pool.play(samples.get(id), streamVolume, streamVolume, 1, 0, 1.0f);
+		}
+		return -1;
 	}
-	
+
 	public void stop(int streamId) {
 		pool.pause(streamId);
 	}
