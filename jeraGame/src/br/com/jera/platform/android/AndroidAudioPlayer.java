@@ -14,7 +14,7 @@ public class AndroidAudioPlayer implements AudioPlayer {
 	private static int MAXIMUM_SIMULTANEOUS_SFX = 8;
 
 	public AndroidAudioPlayer(Activity activity) {
-		if (Build.DEVICE.equals("olympus")) {
+		if (Build.DEVICE.equals("olympus") || Build.DEVICE.equals("GT-I9100")) {
 			MAXIMUM_SIMULTANEOUS_SFX = 1;
 		}
 		this.context = activity;

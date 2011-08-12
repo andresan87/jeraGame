@@ -5,7 +5,8 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="/TowerDefenseLib/lib/FlurryAgent.jar"/>
 	<classpathentry kind="lib" path="/TowerDefenseLib/lib/jeraMobStats.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/AndroidUtil"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/TapjoyConnect"/>
+	<classpathentry kind="src" path="TapjoyConnect_src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Android-Util"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
