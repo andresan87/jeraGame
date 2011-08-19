@@ -14,7 +14,7 @@ public class AndroidAudioPlayer implements AudioPlayer {
 	private static int MAXIMUM_SIMULTANEOUS_SFX = 8;
 
 	public AndroidAudioPlayer(Activity activity) {
-		if (Build.DEVICE.equals("olympus") || Build.DEVICE.equals("GT-I9100")) {
+		if (Build.DEVICE.equals("olympus")) {
 			MAXIMUM_SIMULTANEOUS_SFX = 1;
 		}
 		this.context = activity;
@@ -29,7 +29,7 @@ public class AndroidAudioPlayer implements AudioPlayer {
 	}                                
 
 	public int play(int id) {
-		if (!Build.DEVICE.equals("GT-S5830B")) {
+		if (!Build.DEVICE.equals("GT-S5830B") && !Build.DEVICE.equals("GT-I9100")) {
 			float streamVolume = manager.getStreamVolume(AudioManager.STREAM_MUSIC);
 			streamVolume /= manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
 			streamVolume *= globalVolume;

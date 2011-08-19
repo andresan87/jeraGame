@@ -5,8 +5,12 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="/TowerDefenseLib/lib/FlurryAgent.jar"/>
 	<classpathentry kind="lib" path="/TowerDefenseLib/lib/jeraMobStats.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AndroidUtil"/>
+	<classpathentry kind="src" path="AndroidUtil_src"/>
+	<classpathentry kind="lib" path="/AndroidUtil/lib/android-query.0.8.2.jar"/>
+	<classpathentry kind="lib" path="/AndroidUtil/lib/FlurryAgent.jar"/>
+	<classpathentry kind="lib" path="/AndroidUtil/lib/GoogleAdMobAdsSdk-4.1.1.jar"/>
+	<classpathentry kind="lib" path="/AndroidUtil/lib/jeraMobStats.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/TapjoyConnect"/>
-	<classpathentry kind="src" path="TapjoyConnect_src"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Android-Util"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
